@@ -7,5 +7,6 @@ Microsserviço para API de controle de ponto.
  - [X] Configuração ORM
  - [X] Criar migration de usuários
  - [X] Criar model de usuários 
- - [ ] Criar rota de cadastro
+ - [X] Criar rota de cadastro
+ - [X] Adicionar criptorafia de senha
  - [ ] Criar rota de autenticação
