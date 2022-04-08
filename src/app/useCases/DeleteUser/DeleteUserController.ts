@@ -9,9 +9,9 @@ export class DeleteUserController {
 
     async handle(request: Request, response: Response): Promise<Response>{
 
-        const { email } = request.body;
+        const { email, password } = request.body;
 
-        const result = await this.deleteUserUseCase.execute({ email }) 
+        const result = await this.deleteUserUseCase.execute({ email, password }) 
 
         if(result instanceof Error){
             return response.status(400).json(result.message)

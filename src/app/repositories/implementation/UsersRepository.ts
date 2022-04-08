@@ -19,7 +19,7 @@ export class UsersRepository implements IUsersRepository{
     }
 
     async delete(email:string){
-        await this.repository.delete(email);
+        await this.repository.delete({email});
     }
 
     async store({name, email, password}: ICreateUserDTO):Promise<void> {

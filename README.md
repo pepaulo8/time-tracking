@@ -3,6 +3,7 @@ Microsserviço para API de controle de ponto.
 
 ## Tasks
 
+Sistema de login:
  - [X] Configuração ambiente
  - [X] Configuração ORM
  - [X] Criar migration de usuários
@@ -11,3 +12,6 @@ Microsserviço para API de controle de ponto.
  - [X] Adicionar criptorafia de senha
  - [X] Criar rota de autenticação
  - [X] Criar middleware de autenticação
+ - [X] Deletar usuário
+ - [X] Separar por useCases
+ - [X] Separar os Repositories

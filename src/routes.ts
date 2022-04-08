@@ -1,20 +1,24 @@
 import { Router } from "express";
-import AuthController from "./app/controllers/AuthController";
-import UserController from "./app/controllers/UserController";
 import AuthMiddleware from "./app/middlewares/AuthMiddleware";
 
-import createUsersController from '../src/app/useCases/CreateUser';
+import createUserController from '../src/app/useCases/CreateUser';
+import deleteUserController from '../src/app/useCases/DeleteUser';
+import authUserController from '../src/app/useCases/AuthUser';
 
 const router = Router();
 
-//router.post('/users', UserController.store);
-
 router.post('/users', (req, res) =>{
-    return createUsersController().handle(req, res);
+    return createUserController().handle(req, res);
+});
+router.delete('/users', (req, res) =>{
+    return deleteUserController().handle(req, res);
 });
 
-router.post('/auth', AuthController.authenticate);
-router.get('/users', AuthMiddleware, UserController.index);
-router.delete('/usuario/:id', AuthMiddleware, UserController.delete);
+router.post('/auth', (req, res) =>{
+    return authUserController().handle(req, res);
+});
+
+router.get('/users', AuthMiddleware, authUserController().index);
+//router.get('/users', AuthMiddleware, UserController.index);
 
 export default router;
