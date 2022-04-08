@@ -10,4 +10,4 @@ Microsserviço para API de controle de ponto.
  - [X] Criar rota de cadastro
  - [X] Adicionar criptorafia de senha
  - [X] Criar rota de autenticação
- - [ ] Criar middlewaren de autenticação
+ - [X] Criar middleware de autenticação
