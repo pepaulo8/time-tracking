@@ -1,4 +1,7 @@
-import express from "express";
+import express = require("express");
+import "reflect-metadata";
+
+import './index'
 import router from "./routes";
 
 const app = express();
