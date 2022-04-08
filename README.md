@@ -4,6 +4,8 @@ Microsserviço para API de controle de ponto.
 ## Tasks
 
  - [X] Configuração ambiente
- - [ ] Configuração ORM
- - [ ] Criar migration de usuários
- - [ ] Criar model de usuários 
+ - [X] Configuração ORM
+ - [X] Criar migration de usuários
+ - [X] Criar model de usuários 
+ - [ ] Criar rota de cadastro
+ - [ ] Criar rota de autenticação
