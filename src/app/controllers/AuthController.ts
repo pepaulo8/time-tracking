@@ -10,7 +10,7 @@ import { User } from '../models/entity/User';
 class AuthController {
     async authenticate(req:Request, res:Response) {
         const repository = AppDataSource.getRepository(User)
-        const { name, email, password } = req.body;
+        const { email, password } = req.body;
 
         const user = await repository.findOne({ where: { email }});
 
