@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { AppDataSource } from '../../data-source';
 
+
 import { User } from '../models/entity/User';
 
 class UserController {
@@ -10,7 +11,7 @@ class UserController {
 
         const userExists = await repository.findOne({ where: { email }});
 
-        if(userExists){
+        if(!userExists){
             res.sendStatus(409);
         }
 
