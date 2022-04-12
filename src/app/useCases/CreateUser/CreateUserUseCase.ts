@@ -1,3 +1,4 @@
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 interface IRequest {
@@ -6,11 +7,13 @@ interface IRequest {
     password: string;
 }
 
+@injectable()
 export class CreateUserUseCase {
 
-    constructor(private usersRepository: IUsersRepository){
-        
-    }
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
+    ) {}
 
     async execute({name, email, password}: IRequest): Promise<void | Error | object[]>{
 

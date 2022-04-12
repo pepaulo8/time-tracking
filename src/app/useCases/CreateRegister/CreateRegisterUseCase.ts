@@ -1,14 +1,18 @@
+import { inject, injectable } from "tsyringe";
 import { Register } from "../../models/entity/Register";
 import { IRegistersRepository } from "../../repositories/IRegistersRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
-
+@injectable()
 export class CreateRegisterUseCase {
 
-    constructor(private registersRepository: IRegistersRepository, 
-        private usersRepository: IUsersRepository){
+    constructor(
+        @inject("RegistersRepository")
+        private registersRepository: IRegistersRepository,
         
-    }
+        @inject("UsersRepository") 
+        private usersRepository: IUsersRepository
+    ) {}
 
     async execute(userId: string): Promise<Register | Error | object[]>{
 

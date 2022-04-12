@@ -1,26 +1,26 @@
+import { CreateUserController } from './app/useCases/CreateUser/CreateUserController';
 import { Router } from "express";
 import AuthMiddleware from "./app/middlewares/AuthMiddleware";
 
-import createUserController from '../src/app/useCases/CreateUser';
-import deleteUserController from '../src/app/useCases/DeleteUser';
-import authUserController from '../src/app/useCases/AuthUser';
-import createRegisterController from '../src/app/useCases/CreateRegister';
+import { CreateRegisterController } from './app/useCases/CreateRegister/CreateRegisterController';
+import { DeleteUserController } from './app/useCases/DeleteUser/DeleteUserController';
+import { AuthUserController } from './app/useCases/AuthUser/AuthUserController';
 
 const router = Router();
 
-router.post('/users', (req, res) =>{
-    return createUserController().handle(req, res);
-});
-router.delete('/users', (req, res) =>{
-    return deleteUserController().handle(req, res);
-});
+const createUserController = new CreateUserController();
+const createRegisterController = new CreateRegisterController();
+const deleteUserController = new DeleteUserController();
+const authUserController = new AuthUserController();
 
-router.get('/auth', (req, res) =>{
-    return authUserController().handle(req, res);
-});
+router.post('/users', createUserController.handle);
 
-router.get('/users', AuthMiddleware, authUserController().index);
+router.delete('/users', deleteUserController.handle);
 
-router.post('/registers', AuthMiddleware, createRegisterController().handle)
+router.get('/auth', authUserController.handle);
+
+router.get('/users', AuthMiddleware, authUserController.index);
+
+router.post('/registers', AuthMiddleware, createRegisterController.handle)
 
 export default router;

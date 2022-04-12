@@ -2,6 +2,7 @@ import express = require("express");
 import "reflect-metadata";
 
 import './index'
+import './app/shared/container'
 import router from "./routes";
 
 const app = express();

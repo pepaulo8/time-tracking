@@ -2,17 +2,21 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 import bcrypt = require("bcryptjs");
 import jwt = require("jsonwebtoken");
 import SECRET_KEY from '../../../../env';
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
     email: string;
     password: string;
 }
 
+@injectable()
 export class AuthUserUseCase {
 
-    constructor(private usersRepository: IUsersRepository){
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
         
-    }
+    ){}
 
     async execute({ email, password }: IRequest): Promise<void | Error | Object>{
 

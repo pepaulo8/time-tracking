@@ -1,16 +1,20 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import bcrypt = require("bcryptjs");
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
     email: string;
     password: string;
 }
 
+@injectable()
 export class DeleteUserUseCase {
 
-    constructor(private usersRepository: IUsersRepository){
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
         
-    }
+    ){}
 
     async execute({ email, password }: IRequest): Promise<void | Error | object[]>{
 

@@ -1,17 +1,17 @@
 import { Request, Response } from 'express'
+import { container } from 'tsyringe';
 import { DeleteUserUseCase } from './DeleteUserUseCase'
 
 export class DeleteUserController {
 
-    constructor(private deleteUserUseCase: DeleteUserUseCase){
-
-    }
 
     async handle(request: Request, response: Response): Promise<Response>{
 
         const { email, password } = request.body;
 
-        const result = await this.deleteUserUseCase.execute({ email, password }) 
+        const deleteUserUseCase = container.resolve(DeleteUserUseCase)
+        
+        const result = await deleteUserUseCase.execute({ email, password }) 
 
         if(result instanceof Error){
             return response.status(400).json(result.message)

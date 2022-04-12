@@ -1,17 +1,16 @@
 import { Request, Response } from 'express'
+import { container } from 'tsyringe';
 import { AuthUserUseCase } from './AuthUserUseCase'
 
 export class AuthUserController {
 
-    constructor(private authUserUseCase: AuthUserUseCase){
-
-    }
 
     async handle(request: Request, response: Response): Promise<Response>{
 
         const { email, password } = request.body;
 
-        const result = await this.authUserUseCase.execute({ email, password }) 
+        const authUserUseCase = container.resolve(AuthUserUseCase)
+        const result = await authUserUseCase.execute({ email, password }) 
 
         if(result instanceof Error){
             return response.status(401).json(result.message)

@@ -1,4 +1,4 @@
-import { UsersRepository } from "../../repositories/implementation/UsersRepository";
+/* import { UsersRepository } from "../../repositories/implementation/UsersRepository";
 import { AuthUserUseCase } from "./AuthUserUseCase";
 import { AuthUserController } from './AuthUserController';
 
@@ -13,3 +13,4 @@ export default (): AuthUserController => {
     return authUserController 
 }
 
+ */

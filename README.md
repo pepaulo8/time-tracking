@@ -21,3 +21,4 @@ Sistema de login:
  - [X] Criar registro via requisição
  - [ ] Deletar registro 
  - [ ] Validação para o tipo de registro (Entrada/saída)
+ - [ ] Listar registros

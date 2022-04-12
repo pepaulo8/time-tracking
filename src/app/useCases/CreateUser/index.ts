@@ -1,4 +1,4 @@
-import { UsersRepository } from "../../repositories/implementation/UsersRepository";
+/* import { UsersRepository } from "../../repositories/implementation/UsersRepository";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 import {CreateUserController } from "./CreateUserController";
 
@@ -11,5 +11,5 @@ export default (): CreateUserController => {
     const createUserController = new CreateUserController(createUserUseCase); 
 
     return createUserController 
-}
+} */
 
