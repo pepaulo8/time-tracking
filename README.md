@@ -15,3 +15,9 @@ Sistema de login:
  - [X] Deletar usuário
  - [X] Separar por useCases
  - [X] Separar os Repositories
+
+ Registro de ponto:
+ - [X] Criar migration e entidade de registro 
+ - [X] Criar registro via requisição
+ - [ ] Deletar registro 
+ - [ ] Validação para o tipo de registro (Entrada/saída)

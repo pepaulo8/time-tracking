@@ -5,7 +5,7 @@ import bcrypt = require("bcryptjs");
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id: string
 
     @Column()
     name: string

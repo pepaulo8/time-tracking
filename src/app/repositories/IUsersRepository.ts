@@ -26,6 +26,8 @@ interface IUsersRepository {
     store({name, email, password}:ICreateUserDTO): Promise<void>;
 
     findByEmail(email:string): Promise<User | undefined>;
+    
+    findByUserId(userId:string): Promise<User | undefined>;
 
 }
 
