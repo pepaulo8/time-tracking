@@ -7,9 +7,11 @@ export class ListRegistersController {
     async handle(request: Request, response: Response): Promise<Response>{
         const userId = request.userId;
 
+        const { startDate, endDate } = request.body
+
         const listRegistersUseCase = container.resolve(ListRegistersUseCase);
 
-        const result = await listRegistersUseCase.execute(userId);
+        const result = await listRegistersUseCase.execute({userId , startDate, endDate});
 
         if(result instanceof Error){
             return response.status(400).json(result.message)

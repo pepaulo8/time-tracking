@@ -1,9 +1,9 @@
 import { AppDataSource } from '../../../data-source';
-import { Repository }from 'typeorm'
+import { Between, Repository }from 'typeorm'
 
 
 import { Register } from '../../models/entity/Register';
-import { IRegistersRepository, ICreateRegisterDTO, IUpdateRegisterDTO } from '../IRegistersRepository';
+import { IRegistersRepository, ICreateRegisterDTO, IListRegistersBetweenDatesDTO } from '../IRegistersRepository';
 
 
 export class RegistersRepository implements IRegistersRepository{
@@ -14,6 +14,21 @@ export class RegistersRepository implements IRegistersRepository{
         this.repository = AppDataSource.getRepository(Register);
     }
 
+
+    async listBetweenDates({userId, startDate, endDate}: IListRegistersBetweenDatesDTO): Promise<Register[]> {
+
+        const registers = await this.repository.find({
+            where: {
+                userId,
+                date: Between(
+                    startDate,
+                    endDate
+                )
+            }
+        });
+
+        return registers;
+    }
 
     async list(userId: string): Promise<Register[]> {
 

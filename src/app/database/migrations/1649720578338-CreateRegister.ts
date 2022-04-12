@@ -18,12 +18,12 @@ export class CreateRegister1649720578338 implements MigrationInterface {
                         },
                         {
                             name: "time",
-                            type: "varchar",
+                            type: "TIME",
                             isNullable: false
                         },
                         {
                             name: "date",
-                            type: "varchar",
+                            type: "DATE",
                             isNullable: false
                         },
                         {

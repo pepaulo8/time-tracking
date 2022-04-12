@@ -23,10 +23,11 @@ export class CreateRegisterUseCase {
             return new Error("userId is invalid");
         }
 
-        const today = new Date().toLocaleString("pt-BR");
+        const today = new Date().toLocaleString("sv-SE"); //format: yyyy-mm-dd , HH:MM:SS
         const todayArr = today.split(' ');
 
         const date = todayArr[0];
+        //const date = '2022-05-12';
         const time = todayArr[1];
 
         const register = this.registersRepository.store({userId, date, time});

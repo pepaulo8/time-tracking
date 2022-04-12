@@ -20,5 +20,22 @@ Sistema de login:
  - [X] Criar migration e entidade de registro 
  - [X] Criar registro via requisição
  - [X] Listar registros
- - [ ] Deletar registro 
- - [ ] Validação para o tipo de registro (Entrada/saída)
+ - [X] Listar registros dia
+ - [X] Listar registros mês
+ - [X] Listar o tipo de registro (Entrada/saída)
+
+## Requisitos
+
+Back:
+* ~~Controle de login (usuario e senha)~~
+* ~~Registrar ponto~~
+* ~~Consultar ponto (dia)~~
+* ~~Folha espelho (mês)~~
+
+Front:
+* O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia
+* O aplicativo deve mostrar a folha espelho do ponto do mes
+* O aplicativo deve destacar os dias que ultrapassarem 8 horas de trabalho
+* O aplicativo deve solicitar login para que o usuário verifique seu ponto, sua folha e que consiga realizar o batimento.
+* O usuário deve conseguir ver o ponto em qualquer dispositivo que faça login
+
