@@ -19,6 +19,6 @@ Sistema de login:
  Registro de ponto:
  - [X] Criar migration e entidade de registro 
  - [X] Criar registro via requisição
+ - [X] Listar registros
  - [ ] Deletar registro 
  - [ ] Validação para o tipo de registro (Entrada/saída)
- - [ ] Listar registros

@@ -21,6 +21,8 @@ interface IUpdateRegisterDTO {
 
 interface IRegistersRepository {
 
+    list(userId: string): Promise<Register[]>;
+
     store({time, date, userId}:ICreateRegisterDTO): Promise<Register>;
 
 }
