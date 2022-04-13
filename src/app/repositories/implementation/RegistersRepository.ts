@@ -32,7 +32,6 @@ export class RegistersRepository implements IRegistersRepository{
 
     async list(userId: string): Promise<Register[]> {
 
-        //const userExists = await this.repository.findOne({where: { id: userId }});
         const registers = await this.repository.find({where: { userId }});
 
         return registers;

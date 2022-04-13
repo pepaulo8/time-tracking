@@ -27,7 +27,6 @@ export class CreateRegisterUseCase {
         const todayArr = today.split(' ');
 
         const date = todayArr[0];
-        //const date = '2022-05-12';
         const time = todayArr[1];
 
         const register = this.registersRepository.store({userId, date, time});

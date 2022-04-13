@@ -11,7 +11,7 @@ export class ListRegistersController {
 
         const listRegistersUseCase = container.resolve(ListRegistersUseCase);
 
-        const result = await listRegistersUseCase.execute({userId , startDate, endDate});
+        const result = await listRegistersUseCase.periodTimeSheet({userId , startDate, endDate});
 
         if(result instanceof Error){
             return response.status(400).json(result.message)

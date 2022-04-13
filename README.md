@@ -22,13 +22,14 @@ Sistema de login:
  - [X] Listar registros
  - [X] Listar registros dia
  - [X] Listar registros mês
- - [ ] Listar o tipo de registro (Entrada/saída)
+ - [X] Incluir o tipo de registro (Entrada/saída)
 
 ## Requisitos
 
 Back:
 * ~~Controle de login (usuario e senha)~~
 * ~~Registrar ponto~~
+* Calculo das horas trabalhadas
 * Consultar ponto (dia)
 * Folha espelho (mês)
 
