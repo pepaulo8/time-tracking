@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { Register } from "../../models/entity/Register";
 import { IRegistersRepository } from "../../repositories/IRegistersRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
+import moment = require("moment");
 
 interface IRequestPeriod {
     userId: string;
@@ -24,7 +25,7 @@ export class ListRegistersUseCase {
         
     ) {}
 
-    async periodTimeSheet ({userId, startDate, endDate}: IRequestPeriod): Promise<Register | Error | object[]>{
+    async periodTimeSheet ({userId, startDate, endDate}: IRequestPeriod): Promise<Error | object[]>{
 
         const list = await this.registersRepository.listBetweenDates({userId, startDate, endDate});
         
@@ -39,7 +40,6 @@ export class ListRegistersUseCase {
         const listPerDay = separatePerDay(listDatesFormatted)
         
         const listDto = addType(listPerDay)
-        //console.log("addType", listDto);
 
         return listDto;
     }
@@ -50,9 +50,6 @@ function separatePerDay(list: Register[]){
 
     const result = groupBy(list, "date");
     return result
-}
-
-function calculateHoursWorked(listDto: Register[]) {
 }
 
 function groupBy (array, key) {
@@ -75,18 +72,36 @@ function formatDates(list: Register[]) {
     return list
 }
 
-function addType(listPerDay: any) {
+function addType(listPerDay: any):object[] {
 
-    const valuesParent = Object.values(listPerDay)
+    const valuesGrand = Object.values(listPerDay)
 
-    valuesParent.forEach((el) => {
-        let valuesChild = Object.values(el)
+    valuesGrand.forEach((el) => {
+        let valuesParent = Object.values(el)
+        el["minutesWorked"] = 0
+        //console.log("elGrand:", typeof el, el)
+        for (let index = 0; index < valuesParent.length; index++) {
+            const element = valuesParent[index];
+            let valuesChild = Object.values(element)
 
-        valuesChild.forEach((el,idx) => {
-            el.type = idx%2 == 0 ? 'in' : 'out';
-            delete el.id
-            delete el.userId
-        })
+            if(index%2 != 0){
+                const elementBef = valuesParent[index-1]
+                
+                var momTimeBef = moment(elementBef.time, 'HH:mm:ss')
+                var momTimeCur = moment(element.time, 'HH:mm:ss')
+ 
+                const diffMinutes = momTimeCur.diff(momTimeBef,'m')
+                const hoursWorked = momTimeCur.diff(momTimeBef,'h')
+
+                const minutesWorked = diffMinutes < 60 ? diffMinutes : diffMinutes - (hoursWorked * 60);
+
+                el["minutesWorked"] = diffMinutes +  el["minutesWorked"]
+            }
+
+            element.type = index%2 == 0 ? 'in' : 'out';
+            delete element.id
+            delete element.userId
+        }
 
     })
     return listPerDay

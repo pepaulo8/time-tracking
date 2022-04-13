@@ -16,9 +16,22 @@ export class ListRegistersController {
         if(result instanceof Error){
             return response.status(400).json(result.message)
         }
+
+        let dates = Object.keys(result)
+        let registers = Object.values(result)
+        
+        let resultDto = []
+
+        registers.forEach((el,idx) => {
+            resultDto.push([{
+                date: dates[idx],
+                registers: registers[idx],
+                minutesWorked: el["minutesWorked"]
+            }])
+        })
         
         return response.status(200).json({
-            result
+            resultDto
         })
     }
     

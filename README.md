@@ -23,15 +23,16 @@ Sistema de login:
  - [X] Listar registros dia
  - [X] Listar registros mês
  - [X] Incluir o tipo de registro (Entrada/saída)
+ - [X] Calculo das horas trabalhadas 
 
 ## Requisitos
 
 Back:
 * ~~Controle de login (usuario e senha)~~
 * ~~Registrar ponto~~
-* Calculo das horas trabalhadas
-* Consultar ponto (dia)
-* Folha espelho (mês)
+* ~~Calculo das horas trabalhadas~~
+* ~~Consultar ponto (dia)~~
+* ~~Folha espelho (mês)~~
 
 Front:
 * O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia
