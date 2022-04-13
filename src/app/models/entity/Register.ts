@@ -1,4 +1,4 @@
-import { Entity, Column , OneToOne, JoinColumn, PrimaryColumn} from "typeorm"
+import { Entity, Column , JoinColumn, PrimaryColumn, ManyToOne} from "typeorm"
 import { User } from "./User"
 import { v4 as uuidV4 } from "uuid";
 
@@ -14,7 +14,7 @@ export class Register {
     @Column()
     date: String
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     @JoinColumn({ name: "userId" })
     user: User
 
