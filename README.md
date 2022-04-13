@@ -22,15 +22,15 @@ Sistema de login:
  - [X] Listar registros
  - [X] Listar registros dia
  - [X] Listar registros mês
- - [X] Listar o tipo de registro (Entrada/saída)
+ - [ ] Listar o tipo de registro (Entrada/saída)
 
 ## Requisitos
 
 Back:
 * ~~Controle de login (usuario e senha)~~
 * ~~Registrar ponto~~
-* ~~Consultar ponto (dia)~~
-* ~~Folha espelho (mês)~~
+* Consultar ponto (dia)
+* Folha espelho (mês)
 
 Front:
 * O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia
