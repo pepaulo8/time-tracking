@@ -14,7 +14,7 @@ export class Register {
     @Column()
     date: String
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, (user) => user.registers)
     @JoinColumn({ name: "userId" })
     user: User
 

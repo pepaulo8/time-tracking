@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column , BeforeInsert, BeforeUpdate} from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column , BeforeInsert, BeforeUpdate, OneToMany} from "typeorm"
 import bcrypt = require("bcryptjs");
+import { Register } from "./Register";
 
 @Entity('users')
 export class User {
@@ -16,9 +17,12 @@ export class User {
     @Column()
     password: string
 
+    @OneToMany(() => Register, (register) => register.user)
+    registers: Register[]
+
     @BeforeInsert()
     @BeforeUpdate()
-    hashPassword(){
+    hashPassword(): void{
         this.password = bcrypt.hashSync(this.password, 8)
     }
 
