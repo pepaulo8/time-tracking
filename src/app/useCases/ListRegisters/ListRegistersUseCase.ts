@@ -25,6 +25,34 @@ export class ListRegistersUseCase {
         
     ) {}
 
+    addMinutesWorked(resultDto: object[]): object[] {
+        var periodMinutesWorked = 0
+
+        resultDto.forEach((el) => {
+            var elZero = el[0]
+            periodMinutesWorked = elZero.minutesWorked + periodMinutesWorked
+        })
+
+        resultDto.push({ periodMinutesWorked })
+        return resultDto
+    }
+
+    formatList(result: object[]): object[] {
+        let dates = Object.keys(result)
+        let registers = Object.values(result)
+        
+        let resultDto = []
+
+        registers.forEach((el,idx) => {
+            resultDto.push([{
+                date: dates[idx],
+                registers: registers[idx],
+                minutesWorked: el["minutesWorked"]
+            }])
+        })
+        return resultDto
+    }
+
     async periodTimeSheet ({userId, startDate, endDate}: IRequestPeriod): Promise<Error | object[]>{
 
         const list = await this.registersRepository.listBetweenDates({userId, startDate, endDate});
@@ -106,3 +134,4 @@ function addType(listPerDay: any):object[] {
     })
     return listPerDay
 }
+

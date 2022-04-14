@@ -11,24 +11,15 @@ export class ListRegistersController {
 
         const listRegistersUseCase = container.resolve(ListRegistersUseCase);
 
-        const result = await listRegistersUseCase.periodTimeSheet({userId , startDate, endDate});
+        const resultList = await listRegistersUseCase.periodTimeSheet({userId , startDate, endDate});
 
-        if(result instanceof Error){
-            return response.status(400).json(result.message)
+        if(resultList instanceof Error){
+            return response.status(400).json(resultList.message)
         }
 
-        let dates = Object.keys(result)
-        let registers = Object.values(result)
-        
-        let resultDto = []
+        const resultListFmt = listRegistersUseCase.formatList(resultList)
 
-        registers.forEach((el,idx) => {
-            resultDto.push([{
-                date: dates[idx],
-                registers: registers[idx],
-                minutesWorked: el["minutesWorked"]
-            }])
-        })
+        const resultDto = listRegistersUseCase.addMinutesWorked(resultListFmt)
         
         return response.status(200).json({
             resultDto
