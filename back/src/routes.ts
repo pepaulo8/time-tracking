@@ -19,7 +19,7 @@ router.post('/users', createUserController.handle);
 
 router.delete('/users', deleteUserController.handle);
 
-router.get('/auth', authUserController.handle);
+router.post('/auth', authUserController.handle);
 
 router.get('/users', AuthMiddleware, authUserController.index);
 

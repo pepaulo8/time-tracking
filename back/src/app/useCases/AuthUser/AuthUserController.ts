@@ -6,7 +6,6 @@ export class AuthUserController {
 
 
     async handle(request: Request, response: Response): Promise<Response>{
-
         const { email, password } = request.body;
 
         const authUserUseCase = container.resolve(AuthUserUseCase)
