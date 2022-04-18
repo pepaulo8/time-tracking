@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
+import { AppError } from '../../errors/AppError';
 import { AuthUserUseCase } from './AuthUserUseCase'
 
 export class AuthUserController {
@@ -11,8 +12,8 @@ export class AuthUserController {
         const authUserUseCase = container.resolve(AuthUserUseCase)
         const result = await authUserUseCase.execute({ email, password }) 
 
-        if(result instanceof Error){
-            return response.status(401).json(result.message)
+        if(result instanceof AppError){
+            return response.status(401).json(result)
         }
         
         return response.status(200).json(result)

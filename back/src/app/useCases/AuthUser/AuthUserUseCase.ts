@@ -3,6 +3,7 @@ import bcrypt = require("bcryptjs");
 import jwt = require("jsonwebtoken");
 import SECRET_KEY from '../../../../env';
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../errors/AppError";
 
 interface IRequest {
     email: string;
@@ -23,7 +24,8 @@ export class AuthUserUseCase {
         const user = await this.usersRepository.findByEmail(email);
 
         if(!user){
-            return new Error("email is invalid");
+            //return new Error("email is invalid");
+            return new AppError("email is invalid", 401);
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
