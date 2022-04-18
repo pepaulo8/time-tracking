@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button, Text, View } from 'react-native';
-import AuthContext from '../../contexts/auth';
+import { useAuth } from '../../contexts/auth';
 
 const Application: React.FC = () => {
 
-  const { logOut } = useContext(AuthContext)
+  const { logOut } = useAuth()
 
   function handleLogOut() {
     logOut();

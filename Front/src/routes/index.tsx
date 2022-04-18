@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import AuthContext from '../contexts/auth';
+import React from 'react';
+import { useAuth } from '../contexts/auth';
 import AppRoutes from './app.routes';
 import Loader from '../components';
 import AuthRoutes from './auth.routes';
 
 
 const Routes: React.FC = () => {
-  const { signed, loading } = useContext(AuthContext);
+  const { signed, loading } = useAuth();
 
   if(loading){
     return <Loader />
