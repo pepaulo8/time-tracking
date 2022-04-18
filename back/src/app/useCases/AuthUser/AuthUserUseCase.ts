@@ -24,14 +24,13 @@ export class AuthUserUseCase {
         const user = await this.usersRepository.findByEmail(email);
 
         if(!user){
-            //return new Error("email is invalid");
             return new AppError("email is invalid", 401);
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         if(!isValidPassword){
-            return new Error("password is invalid");
+            return new AppError("password is invalid", 401);
         } else {
             const token = jwt.sign({id: user.id}, SECRET_KEY, {expiresIn: '1d'});
 

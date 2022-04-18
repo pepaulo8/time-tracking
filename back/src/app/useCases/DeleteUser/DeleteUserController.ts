@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
+import { AppError } from '../../errors/AppError';
 import { DeleteUserUseCase } from './DeleteUserUseCase'
 
 export class DeleteUserController {
@@ -13,8 +14,8 @@ export class DeleteUserController {
         
         const result = await deleteUserUseCase.execute({ email, password }) 
 
-        if(result instanceof Error){
-            return response.status(400).json(result.message)
+        if(result instanceof AppError){
+            return response.status(400).json(result)
         } 
         
         return response.status(200).json({

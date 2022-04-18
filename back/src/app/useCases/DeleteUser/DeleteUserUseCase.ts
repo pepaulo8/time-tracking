@@ -1,6 +1,7 @@
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import bcrypt = require("bcryptjs");
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../errors/AppError";
 
 interface IRequest {
     email: string;
@@ -16,19 +17,18 @@ export class DeleteUserUseCase {
         
     ){}
 
-    async execute({ email, password }: IRequest): Promise<void | Error | object[]>{
+    async execute({ email, password }: IRequest): Promise<void | AppError | object[]>{
 
         const user = await this.usersRepository.findByEmail(email);
 
         if(!user){
-            return new Error("email is invalid");
+            return new AppError("email is invalid");
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         if(!isValidPassword){
-            return new Error("password is invalid");
-            //return res.sendStatus(401);
+            return new AppError("password is invalid");
         } else {
             this.usersRepository.delete(email)
         }

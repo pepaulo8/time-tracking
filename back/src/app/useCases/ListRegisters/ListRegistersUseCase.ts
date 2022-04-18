@@ -3,6 +3,7 @@ import { Register } from "../../models/entity/Register";
 import { IRegistersRepository } from "../../repositories/IRegistersRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import moment = require("moment");
+import { AppError } from "../../errors/AppError";
 
 interface IRequestPeriod {
     userId: string;
@@ -53,14 +54,14 @@ export class ListRegistersUseCase {
         return resultDto
     }
 
-    async periodTimeSheet ({userId, startDate, endDate}: IRequestPeriod): Promise<Error | object[]>{
+    async periodTimeSheet ({userId, startDate, endDate}: IRequestPeriod): Promise<AppError | object[]>{
 
         const list = await this.registersRepository.listBetweenDates({userId, startDate, endDate});
         
         const hasRegisters = list.length;
 
         if(!hasRegisters){
-            return new Error("user has no registers");
+            return new AppError("user has no registers");
         }
 
         const listDatesFormatted = formatDates(list)

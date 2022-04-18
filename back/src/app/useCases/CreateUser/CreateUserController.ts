@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
+import { AppError } from '../../errors/AppError';
 import { CreateUserUseCase } from './CreateUserUseCase'
 
 export class CreateUserController {
@@ -11,12 +12,11 @@ export class CreateUserController {
 
         const createUserUseCase = container.resolve(CreateUserUseCase)
 
-        //const result = await this.createUserUseCase.execute({name, email, password})
         const result = await createUserUseCase.execute({name, email, password}) 
         const existsErrorField = typeof result === 'object'
 
-        if(result instanceof Error){
-            return response.status(400).json(result.message)
+        if(result instanceof AppError){
+            return response.status(400).json(result)
         } else if(existsErrorField){
             return response.status(400).json(result)
         }

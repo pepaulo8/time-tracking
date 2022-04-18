@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
+import { AppError } from '../../errors/AppError';
 import { CreateRegisterUseCase } from './CreateRegisterUseCase'
 
 export class CreateRegisterController {
@@ -11,8 +12,8 @@ export class CreateRegisterController {
 
         const result = await createRegisterUseCase.execute(userId);
 
-        if(result instanceof Error){
-            return response.status(400).json(result.message)
+        if(result instanceof AppError){
+            return response.status(401).json(result)
         }
         
         return response.status(201).json({

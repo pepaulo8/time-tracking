@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../errors/AppError";
 import { Register } from "../../models/entity/Register";
 import { IRegistersRepository } from "../../repositories/IRegistersRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
@@ -14,13 +15,13 @@ export class CreateRegisterUseCase {
         private usersRepository: IUsersRepository
     ) {}
 
-    async execute(userId: string): Promise<Register | Error | object[]>{
+    async execute(userId: string): Promise<Register | AppError | object[]>{
 
         
         const user = await this.usersRepository.findByUserId(userId);
 
         if(!user){
-            return new Error("userId is invalid");
+            return new AppError("userId is invalid", 401);
         }
 
         const today = new Date().toLocaleString("sv-SE"); //format: yyyy-mm-dd , HH:MM:SS

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
+import { AppError } from '../../errors/AppError';
 import { ListRegistersUseCase } from './ListRegistersUseCase'
 
 export class ListRegistersController {
@@ -13,8 +14,8 @@ export class ListRegistersController {
 
         const resultList = await listRegistersUseCase.periodTimeSheet({userId , startDate, endDate});
 
-        if(resultList instanceof Error){
-            return response.status(400).json(resultList.message)
+        if(resultList instanceof AppError){
+            return response.status(400).json(resultList)
         }
 
         const resultListFmt = listRegistersUseCase.formatList(resultList)

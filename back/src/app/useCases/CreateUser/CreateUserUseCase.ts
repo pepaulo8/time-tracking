@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../errors/AppError";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 interface IRequest {
@@ -15,12 +16,12 @@ export class CreateUserUseCase {
         private usersRepository: IUsersRepository
     ) {}
 
-    async execute({name, email, password}: IRequest): Promise<void | Error | object[]>{
+    async execute({name, email, password}: IRequest): Promise<void | AppError | object[]>{
 
         const userExists = await this.usersRepository.findByEmail(email);
 
         if(userExists){
-            return new Error("email is already associated with another user");
+            return new AppError("email is already associated with another user");
         }
  
         const nameValid = name  
