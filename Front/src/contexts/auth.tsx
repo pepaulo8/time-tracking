@@ -3,9 +3,14 @@ import * as auth from '../services/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/auth/api';
 
+interface User {
+  name: string;
+  email: string;
+}
+
 interface IAuthContextData {
   signed: boolean;
-  user: object | null;
+  user: User | null;
   loading: boolean;
   signIn(): Promise<void>;
   logOut(): void;
@@ -17,7 +22,7 @@ type Props = { children: ReactNode }
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
-  const [user, setUser] = useState<object | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

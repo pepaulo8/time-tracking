@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/auth';
 
 const Application: React.FC = () => {
 
-  const { logOut } = useAuth()
+  const { logOut, user } = useAuth()
 
   function handleLogOut() {
     logOut();
@@ -12,6 +12,7 @@ const Application: React.FC = () => {
 
   return (
     <View>
+      <Text>Olá, {user?.name}</Text>
       <Button title='Log out' onPress={handleLogOut}/>
     </View>
   );
