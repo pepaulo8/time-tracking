@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react';
 import * as auth from '../services/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../services/auth/api';
 
 interface IAuthContextData {
   signed: boolean;
@@ -26,9 +27,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const storagedToken = storagedData[1][1]
     
       if(storagedUser && storagedToken){
+        api.defaults.headers.common = {'Authorization': `Bearer ${storagedToken}`}
         setUser(JSON.parse(storagedUser))
-        setLoading(false)
       }
+
+      setLoading(false)
     }
 
     loadStoragedData()
@@ -37,6 +40,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   async function signIn() {
      const response = await auth.signIn();
      typeof response == undefined ? setUser(null) : setUser(response.user);
+
+     api.defaults.headers.common = {'Authorization': `Bearer ${response.token}`}
 
      AsyncStorage.setItem('@controle-ponto:user', JSON.stringify(response.user))
      AsyncStorage.setItem('@controle-ponto:token', response.token)
