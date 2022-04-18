@@ -12,7 +12,8 @@ interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  signIn(): Promise<void>;
+  messageError: string | undefined;
+  signIn(email:string, password:string): Promise<void | string>;
   logOut(): void;
 }
 
@@ -23,6 +24,7 @@ type Props = { children: ReactNode }
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
+  const [messageError, setMessageError] = useState<string | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,21 +37,27 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         api.defaults.headers.common = {'Authorization': `Bearer ${storagedToken}`}
         setUser(JSON.parse(storagedUser))
       }
-
       setLoading(false)
     }
 
     loadStoragedData()
   })
 
-  async function signIn() {
-     const response = await auth.signIn();
-     typeof response == undefined ? setUser(null) : setUser(response.user);
+  async function signIn(email: string, password: string) {
+     const response = await auth.signIn(email, password);
+     
+     if(response.message){
+       setMessageError(response.message)
+      } else {
+        setMessageError(undefined)
+        setUser(response.user);
 
-     api.defaults.headers.common = {'Authorization': `Bearer ${response.token}`}
+        api.defaults.headers.common = {'Authorization': `Bearer ${response.token}`}
 
-     AsyncStorage.setItem('@controle-ponto:user', JSON.stringify(response.user))
-     AsyncStorage.setItem('@controle-ponto:token', response.token)
+        AsyncStorage.setItem('@controle-ponto:user', JSON.stringify(response.user))
+        AsyncStorage.setItem('@controle-ponto:token', response.token)
+      }
+      
   }
 
   function logOut() {
@@ -61,7 +69,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   
   return (
-  <AuthContext.Provider value={{ signed: !!user, user , loading, signIn, logOut}}>
+  <AuthContext.Provider value={{ signed: !!user, user , loading, messageError, signIn, logOut}}>
     {children}
   </AuthContext.Provider>
 )}

@@ -1,7 +1,8 @@
 import api from '../auth/api'
-import axios from "axios";
 
 interface Response {
+    message?: string;
+    statusCode?: number;
     token: string;
     user: {
         name: string;
@@ -9,16 +10,28 @@ interface Response {
     }
 }
 
-export async function signIn ():Promise<Response> {
-    
-    const email = "vini@email.com"
-    const password = "123"
+/* interface ResponseUser {
+    token: string;
+    user: {
+        name: string;
+        email: string;
+    }
+}
 
+interface ResponseError {
+    message: string;
+    statusCode: number; 
+} */
+
+export async function signIn (email:string, password:string):Promise<Response> {
+    
     const result = await api.post("/Auth", {email, password })
     .then((response) => {
         return response.data
     })
-    .catch((error) => console.log(error.message));
+    .catch((error) => {
+        return error.response.data
+    });
 
     return result
 
