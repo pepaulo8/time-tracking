@@ -1,7 +1,15 @@
 import api from '../auth/api'
 import axios from "axios";
 
-export async function signIn () {
+interface Response {
+    token: string;
+    user: {
+        name: string;
+        email: string;
+    }
+}
+
+export async function signIn ():Promise<Response> {
     
     const email = "vini@email.com"
     const password = "123"
