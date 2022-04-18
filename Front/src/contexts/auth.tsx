@@ -1,9 +1,11 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useState, useEffect } from 'react';
 import * as auth from '../services/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IAuthContextData {
   signed: boolean;
   user: object | null;
+  loading: boolean;
   signIn(): Promise<void>;
   logOut(): void;
 }
@@ -15,19 +17,41 @@ type Props = { children: ReactNode }
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<object | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadStoragedData (){
+      const storagedData = await AsyncStorage.multiGet(['@controle-ponto:user','@controle-ponto:token'])
+      const storagedUser = storagedData[0][1]
+      const storagedToken = storagedData[1][1]
+    
+      if(storagedUser && storagedToken){
+        setUser(JSON.parse(storagedUser))
+        setLoading(false)
+      }
+    }
+
+    loadStoragedData()
+  })
 
   async function signIn() {
      const response = await auth.signIn();
      typeof response == undefined ? setUser(null) : setUser(response.user);
+
+     AsyncStorage.setItem('@controle-ponto:user', JSON.stringify(response.user))
+     AsyncStorage.setItem('@controle-ponto:token', response.token)
   }
 
   function logOut() {
-    setUser(null)
+    AsyncStorage.clear().then(() => {
+      setUser(null)
+      }
+    )
   }
 
   
   return (
-  <AuthContext.Provider value={{ signed: !!user, user , signIn, logOut}}>
+  <AuthContext.Provider value={{ signed: !!user, user , loading, signIn, logOut}}>
     {children}
   </AuthContext.Provider>
 )}
