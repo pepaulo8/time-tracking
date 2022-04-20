@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../contexts/auth';
 import AppRoutes from './app.routes';
-import Loader from '../components';
+import Loader from '../components/loader';
 import AuthRoutes from './auth.routes';
 
 
