@@ -7,28 +7,32 @@ import styles from './styles';
 
 const SignUp: React.FC = (props: any) => {
 
-  const { signIn, messageError } = useAuth()
+  const { signUp, messageError } = useAuth()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPwd, setconfirmPwd] = useState('')
   const [passwordValid, setPasswordValid] = useState(false)
 
 
   function handleSignUp() {
     console.warn('clicou')
-    //signUp(name, email, password);
+    signUp(name, email, password);
   }
 
   function goToLogin() {
     props.navigation.navigate('Login')
   }
 
-  function checkPassword(value: string) {
-    console.log(value == password)
-    setPasswordValid(value == password)
+  function checkPassword(value: string, type: string) {
+    if(type.includes('confirm')){
+      !!password && !!value ? setPasswordValid(password == value) : setPasswordValid(false);
+    } else {
+      !!value && !!confirmPwd ? setPasswordValid(value == confirmPwd) : setPasswordValid(false);
+    }
+    
   }
-
 
   return (
     <View style={styles.container}>
@@ -46,14 +50,22 @@ const SignUp: React.FC = (props: any) => {
 
         <TextInput style={styles.input}
           placeholder='Password' secureTextEntry
-          onChangeText={value => setPassword(value)}
+          onChangeText={value => {
+            setPassword(value)
+            checkPassword(value, 'password')
+          }  
+          }
         />
         <TextInput style={styles.input}
           placeholder='Confirm password' secureTextEntry
-          onChangeText={value => checkPassword(value)}
+          onChangeText={value => {
+            setconfirmPwd(value)
+            checkPassword(value, 'confirm')
+          }
+        }
         />
 
-        {!passwordValid &&
+        {!!password && !passwordValid &&
           <Text style={styles.msgError}>
             Confirm password not match
           </Text>

@@ -1,4 +1,4 @@
-import api from '../auth/api'
+import api from './api'
 
 interface Response {
     message?: string;
@@ -36,5 +36,4 @@ export async function signIn (email:string, password:string):Promise<Response> {
     return result
 
 }
-
 
