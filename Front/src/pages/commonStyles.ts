@@ -4,6 +4,7 @@ export default {
         primary: '#139DBF',
         secondary: '#25C1E8',
         txtError: '#EC1111',
+        txtSuccess: '#1FF51B',
         warning: '',
     },
     input: {

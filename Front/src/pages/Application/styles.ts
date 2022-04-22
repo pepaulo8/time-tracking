@@ -8,20 +8,19 @@ export default StyleSheet.create({
       paddingHorizontal: '5%',
       backgroundColor: '#ffffff'
     },
-    containerLogo: {
-      flex: 3,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      //backgroundColor: 'blue'
-    },
-    imgLogo: {
-      width: 160,
-      height: 155,
-    },
-    containerLogin: {
-      flex: 5,
+    containerData: {
+      flex: 1,
       justifyContent: 'center',
-      //backgroundColor: 'green',
+      alignItems: 'center',
+    },
+    containerResponse: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 15
+    },
+    containerRegister: {
+      flex: 1,
+      justifyContent: 'center',
       marginBottom: '15%',
     },
     btnLogin: {
@@ -47,11 +46,32 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    msgSuccess: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: commonStyles.colors.txtSuccess,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     titleForm: {
       color: commonStyles.colors.secondary,
       fontSize: 24,
       fontWeight: 'bold',
       alignSelf: 'center',
       marginBottom: 25
+    },
+    subtitleForm: {
+      color: commonStyles.colors.secondary,
+      fontSize: 18,
+      alignSelf: 'center',
+      marginBottom: 5
+    },
+    info: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });

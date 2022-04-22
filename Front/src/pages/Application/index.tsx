@@ -26,28 +26,32 @@ const Application: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerLogin}>
+      <View style={styles.containerData}>
         <Text style={styles.titleForm}>
           Olá, {user?.name}
         </Text>
-        
-
+        <Text style={styles.subtitleForm}>
+          Click above to confirm your register
+        </Text>
+      
         <TouchableOpacity onPress={handleRegister} style={styles.btnLogin}>
-          <Text style={styles.btnTitle}>Register</Text>
+          <Text style={styles.btnTitle}>{type ? `Clock ${type}` : 'Clock in'}</Text>
         </TouchableOpacity>
 
         {message &&
-          <>
-            <Text>
+          <View style={styles.containerResponse}>
+            <Text style={styles.msgSuccess}>
               {message}
             </Text>
-            <Text>
-              date: {date}
-            </Text>
-            <Text>
-              time: {time}
-            </Text>
-          </>
+            <View >
+              <Text style={styles.info}>
+                Date: {date}
+              </Text>
+              <Text style={styles.info}>
+                Time: {time}
+              </Text>
+            </View>
+          </View>
           
         }
 
