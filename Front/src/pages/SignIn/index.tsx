@@ -5,18 +5,22 @@ import { useAuth } from '../../contexts/auth';
 import styles from './styles';
 
 const SignIn: React.FC = (props :any) => {
-  const { signIn, messageError } = useAuth()
+  const { signIn } = useAuth()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [messageErrorSignIn, setmessageErrorSignIn] = useState<string | undefined>()
   const IMAGE_LOGO = require('../../assets/Click-clock-logo-preview.png');
+   
 
-
-  function handleSignIn() {
-    signIn(email, password);
+  async function handleSignIn() {
+    const responseMsg  = await signIn(email, password);
+    console.log(responseMsg)
+    responseMsg ? setmessageErrorSignIn(responseMsg) : false;
   }
   
   function goToSignUp() {
+    setmessageErrorSignIn(undefined)
     props.navigation.navigate('SignUp')
   }
 
@@ -40,9 +44,9 @@ const SignIn: React.FC = (props :any) => {
           onChangeText={value => setPassword(value)}
         />
 
-        {messageError &&
+        {messageErrorSignIn &&
           <Text style={styles.msgError}>
-            {messageError}
+            {messageErrorSignIn}
           </Text>
         }
         <TouchableOpacity onPress={handleSignIn} style={styles.btnLogin}>

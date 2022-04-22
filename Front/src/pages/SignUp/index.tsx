@@ -7,21 +7,22 @@ import styles from './styles';
 
 const SignUp: React.FC = (props: any) => {
 
-  const { signUp, messageError } = useAuth()
+  const { signUp } = useAuth()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPwd, setconfirmPwd] = useState('')
   const [passwordValid, setPasswordValid] = useState(false)
-
-
-  function handleSignUp() {
-    console.warn('clicou')
-    signUp(name, email, password);
+  const [messageErrorSignUp, setmessageErrorSignUp] = useState<string | undefined>()
+  
+  async function handleSignUp() {
+    const responseMsg  = await signUp(name, email, password);
+    responseMsg ? setmessageErrorSignUp(responseMsg) : false;
   }
 
   function goToLogin() {
+    setmessageErrorSignUp(undefined)
     props.navigation.navigate('Login')
   }
 
@@ -65,17 +66,17 @@ const SignUp: React.FC = (props: any) => {
         }
         />
 
-        {!!password && !passwordValid &&
+        {!!password && !!confirmPwd && !passwordValid &&
           <Text style={styles.msgError}>
             Confirm password not match
           </Text>
         }
-        {messageError &&
+        {messageErrorSignUp &&
           <Text style={styles.msgError}>
-            {messageError}
+            {messageErrorSignUp}
           </Text>
         }
-        <TouchableOpacity onPress={handleSignUp} 
+        <TouchableOpacity onPress={ handleSignUp} 
           style={passwordValid? styles.btnSignup : styles.btnSignupDisabled}
           disabled={!passwordValid}
         >

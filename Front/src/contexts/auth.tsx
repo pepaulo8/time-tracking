@@ -13,7 +13,6 @@ interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  messageError: string | undefined;
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
@@ -26,7 +25,6 @@ type Props = { children: ReactNode }
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
-  const [messageError, setMessageError] = useState<string | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,14 +45,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   async function signIn(email: string, password: string) {
     console.log('signIn iniciado...')
-    console.log('email', email)
-    console.log('password', password)
     const response = await auth.signIn(email, password);
 
     if (response.message) {
-      setMessageError(response.message)
+      return response.message
     } else {
-      setMessageError(undefined)
       setUser(response.user);
 
       api.defaults.headers.common = { 'Authorization': `Bearer ${response.token}` }
@@ -69,9 +64,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const response = await userAuth.signUp(name, email, password);
 
     if (response.statusCode) {
-      setMessageError(response.message)
+      return response.message
     } else {
-      setMessageError(undefined)
       signIn(email, password)
     }
 
@@ -87,7 +81,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, loading, messageError, signIn, signUp, logOut }}>
+      value={{ signed: !!user, user, loading, signIn, signUp, logOut }}>
       {children}
     </AuthContext.Provider>
   )
