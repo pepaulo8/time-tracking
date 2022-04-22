@@ -14,10 +14,11 @@ const SignUp: React.FC = (props: any) => {
   const [password, setPassword] = useState('')
   const [confirmPwd, setconfirmPwd] = useState('')
   const [passwordValid, setPasswordValid] = useState(false)
+  const [emailValid, setEmailValid] = useState<boolean>(false)
   const [messageErrorSignUp, setmessageErrorSignUp] = useState<string | undefined>()
-  
+
   async function handleSignUp() {
-    const responseMsg  = await signUp(name, email, password);
+    const responseMsg = await signUp(name, email, password);
     responseMsg ? setmessageErrorSignUp(responseMsg) : false;
   }
 
@@ -26,13 +27,22 @@ const SignUp: React.FC = (props: any) => {
     props.navigation.navigate('Login')
   }
 
+  const validateFmtEmail = (email: string) => {
+    const rgxEmail = String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    return rgxEmail
+  };
+
   function checkPassword(value: string, type: string) {
-    if(type.includes('confirm')){
+    if (type.includes('confirm')) {
       !!password && !!value ? setPasswordValid(password == value) : setPasswordValid(false);
     } else {
       !!value && !!confirmPwd ? setPasswordValid(value == confirmPwd) : setPasswordValid(false);
     }
-    
+
   }
 
   return (
@@ -46,15 +56,25 @@ const SignUp: React.FC = (props: any) => {
         />
         <TextInput style={styles.input}
           placeholder='E-mail' keyboardType='email-address'
-          onChangeText={value => setEmail(value)}
+          onChangeText={(value) => {
+            setEmail(value)
+            setEmailValid(!!validateFmtEmail(value))
+          }
+          }
         />
+
+        {!!email && !validateFmtEmail(email) &&
+          <Text style={styles.msgError}>
+            E-mail format provided is invalid
+          </Text>
+        }
 
         <TextInput style={styles.input}
           placeholder='Password' secureTextEntry
           onChangeText={value => {
             setPassword(value)
             checkPassword(value, 'password')
-          }  
+          }
           }
         />
         <TextInput style={styles.input}
@@ -63,7 +83,7 @@ const SignUp: React.FC = (props: any) => {
             setconfirmPwd(value)
             checkPassword(value, 'confirm')
           }
-        }
+          }
         />
 
         {!!password && !!confirmPwd && !passwordValid &&
@@ -76,9 +96,9 @@ const SignUp: React.FC = (props: any) => {
             {messageErrorSignUp}
           </Text>
         }
-        <TouchableOpacity onPress={ handleSignUp} 
-          style={passwordValid? styles.btnSignup : styles.btnSignupDisabled}
-          disabled={!passwordValid}
+        <TouchableOpacity onPress={handleSignUp}
+          style={passwordValid && emailValid ? styles.btnSignup : styles.btnSignupDisabled}
+          disabled={!passwordValid || !emailValid}
         >
           <Text style={styles.btnTitle}>Join</Text>
         </TouchableOpacity>
