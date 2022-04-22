@@ -9,7 +9,7 @@ const Application: React.FC = () => {
 
   const [time, setTime] = useState('loading...')
   const [date, setDate] = useState('loading...')
-  const [type, setType] = useState('in')
+  const [type, setType] = useState()
   const [message, setMessage] = useState<string | boolean>(false)
 
   function handleLogOut() {
@@ -35,7 +35,7 @@ const Application: React.FC = () => {
         </Text>
       
         <TouchableOpacity onPress={handleRegister} style={styles.btnLogin}>
-          <Text style={styles.btnTitle}>{type ? `Clock ${type}` : 'Clock in'}</Text>
+          <Text style={styles.btnTitle}>{type ? `Clock ${type}` : 'Register'}</Text>
         </TouchableOpacity>
 
         {message &&
