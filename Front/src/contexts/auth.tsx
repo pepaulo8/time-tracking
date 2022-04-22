@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useState, useEffect, useContext } from 'react';
 import * as auth from '../services/auth'
 import * as userAuth from '../services/user'
+import * as registerAuth from '../services/register'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 
@@ -16,6 +17,7 @@ interface IAuthContextData {
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
+  register(): Promise<object>;
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData)
@@ -78,10 +80,17 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     )
   }
 
+  async function register() {
+    const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
+    const response = await registerAuth.postRegister(storagedToken)
+    return response
+    
+  }
+
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, loading, signIn, signUp, logOut }}>
+      value={{ signed: !!user, user, loading, signIn, signUp, logOut, register }}>
       {children}
     </AuthContext.Provider>
   )
