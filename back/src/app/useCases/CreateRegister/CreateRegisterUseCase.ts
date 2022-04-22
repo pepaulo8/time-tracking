@@ -33,4 +33,18 @@ export class CreateRegisterUseCase {
         const register = this.registersRepository.store({userId, date, time});
         return register;
     }
+    async getNextRegisterType(userId: string): Promise<string>{
+
+        const today = new Date().toLocaleString("sv-SE"); //format: yyyy-mm-dd , HH:MM:SS
+        const todayDate = today.split(' ')[0];
+
+        const startDate = todayDate;
+        const endDate = todayDate;
+
+        const registers = await this.registersRepository.listBetweenDates({userId, startDate, endDate});
+        const numberRegistersToday = registers.length
+        const nextType = numberRegistersToday%2 == 0 ? 'in' : 'out';
+        
+        return nextType;
+    }
 }

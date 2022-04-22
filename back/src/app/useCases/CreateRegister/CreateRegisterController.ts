@@ -11,6 +11,7 @@ export class CreateRegisterController {
         const createRegisterUseCase = container.resolve(CreateRegisterUseCase);
 
         const result = await createRegisterUseCase.execute(userId);
+        const nextType = await createRegisterUseCase.getNextRegisterType(userId);
 
         if(result instanceof AppError){
             return response.status(401).json(result)
@@ -18,7 +19,8 @@ export class CreateRegisterController {
         
         return response.status(201).json({
             message: "Registration was successfully completed",
-            result
+            result,
+            nextType
         })
     }
     
