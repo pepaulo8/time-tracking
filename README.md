@@ -12,7 +12,9 @@ Back-end: Revisão de código.
 Front-end:
  - [X] Tela de login
  - [X] Tela de cadastro
- - [ ] Validação formulário
+ - [X] Validação formulário
+ - [ ] Tela de registro de ponto
+ - [ ] Tela de espelho de ponto
 
 ## Requisitos
 
