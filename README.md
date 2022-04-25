@@ -13,7 +13,7 @@ Front-end:
  - [X] Tela de login
  - [X] Tela de cadastro
  - [X] Validação formulário
- - [ ] Tela de registro de ponto
+ - [X] Tela de registro de ponto
  - [ ] Tela de espelho de ponto
 
 ## Requisitos
@@ -26,9 +26,8 @@ Back:
 * ~~Folha espelho (mês)~~
 
 Front:
-* O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia
-* O aplicativo deve mostrar a folha espelho do ponto do mes
-* O aplicativo deve destacar os dias que ultrapassarem 8 horas de trabalho
 * O aplicativo deve solicitar login para que o usuário verifique seu ponto, sua folha e que consiga realizar o batimento.
-* O usuário deve conseguir ver o ponto em qualquer dispositivo que faça login
+* O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia.
+* O aplicativo deve mostrar a folha espelho do ponto do mês.
+* O aplicativo deve destacar os dias que ultrapassarem 8 horas de trabalho.
 

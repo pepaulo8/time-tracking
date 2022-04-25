@@ -9,21 +9,29 @@ export default StyleSheet.create({
       backgroundColor: '#ffffff'
     },
     containerData: {
-      flex: 1,
+      flex: 3,
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: '10%',
+      //backgroundColor: 'red',
     },
     containerResponse: {
+      flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 15
+      //backgroundColor: 'purple',
     },
     containerRegister: {
       flex: 1,
       justifyContent: 'center',
       marginBottom: '15%',
     },
-    btnLogin: {
+    containerOptions: {
+      flex: 2,
+      justifyContent: 'center',
+      //backgroundColor: 'green',
+      marginBottom: '15%',
+    },
+    btnPrimary: {
       backgroundColor: commonStyles.colors.primary,
       borderRadius: 15,
       width: '90%',
@@ -37,6 +45,16 @@ export default StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
       color: '#FFFFFF'
+    },
+    btnSecondary: {
+      backgroundColor: commonStyles.colors.secondary,
+      borderRadius: 15,
+      width: '90%',
+      height: 45,
+      marginTop: 20,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     msgError: {
       fontSize: 18,
@@ -62,16 +80,28 @@ export default StyleSheet.create({
       marginBottom: 25
     },
     subtitleForm: {
-      color: commonStyles.colors.secondary,
+      color: commonStyles.colors.txtInformation,
       fontSize: 18,
       alignSelf: 'center',
       marginBottom: 5
     },
     info: {
       fontSize: 25,
+      color: commonStyles.colors.txtInformation,
       fontWeight: 'bold',
       alignSelf: 'center',
       alignItems: 'center',
       justifyContent: 'center',
-    }
+    },
+    btnLogout: {
+      backgroundColor: commonStyles.button.logoutColor,
+      borderRadius: 15,
+      width: '90%',
+      height: 45,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20
+    },
+    
   });

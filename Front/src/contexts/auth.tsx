@@ -10,6 +10,15 @@ interface User {
   email: string;
 }
 
+interface registerDto {
+  message: string;
+  nextType: string;
+  result: {
+    date: string;
+    time: string;
+  }
+}
+
 interface IAuthContextData {
   signed: boolean;
   user: User | null;
@@ -17,7 +26,7 @@ interface IAuthContextData {
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
-  register(): Promise<object>;
+  register(): Promise<registerDto>;
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData)
