@@ -17,6 +17,7 @@ interface registerDto {
   result: {
     date: string;
     time: string;
+    type: string;
   }
 }
 
@@ -24,8 +25,8 @@ interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  listOfRegisters: Array<any> | undefined; 
-  minutesWorked: number;
+  listOfRegisters: Array<any>; 
+  infoWorked: object;
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
@@ -41,8 +42,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [listOfRegisters, setListOfRegisters] = useState<Object[] | undefined>();
-  const [minutesWorked, setMinutesWorked] = useState<number>(0);
+  const [listOfRegisters, setListOfRegisters] = useState<Object[]>([{}]);
+  const [infoWorked, setInfoWorked] = useState<object>({});
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -103,14 +104,16 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   async function getRegisterPeriod(startDate: string, endDate: string) {
+    
     const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
     const response = await registerAuth.getRegister(storagedToken, startDate, endDate)
-    //console.log('response.length', response.length)
+    
     if(response.length){
       setListOfRegisters(response[0][0].registers)
-      setMinutesWorked(response[0][0].minutesWorked)
+      setInfoWorked(response[1])
+      setLoading(false)
     }
-    console.log(response[0][0])
+    
     return response
     
   }
@@ -122,7 +125,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         signed: !!user, user, loading,
         signIn, signUp, logOut,
         register, listOfRegisters, getRegisterPeriod,
-        minutesWorked 
+        infoWorked
       }}>
       {children}
     </AuthContext.Provider>

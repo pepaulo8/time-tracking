@@ -7,11 +7,12 @@ import styles from './styles';
 
 const Application: React.FC = (props :any) => {
 
-  const { logOut, user, register, getRegisterPeriod } = useAuth()
+  const { loading, logOut, user, register, getRegisterPeriod } = useAuth()
 
   const [time, setTime] = useState('loading...')
   const [date, setDate] = useState('loading...')
   const [type, setType] = useState<string | undefined>()
+  const [nextType, setNextType] = useState<string | undefined>()
   const [message, setMessage] = useState<string | boolean>(false)
 
   function handleLogOut() {
@@ -19,8 +20,10 @@ const Application: React.FC = (props :any) => {
   }
   async function handleRegister() {
     const response = await register()
+    
     setMessage(response?.message)
-    setType(response?.nextType)
+    setType(response?.result.type)
+    setNextType(response?.nextType)
     setDate(response?.result.date)
     setTime(response?.result.time)
   }
@@ -29,6 +32,7 @@ const Application: React.FC = (props :any) => {
     const today = moment().format('YYYY-MM-DD')
     getRegisterPeriod(today, today)
     props.navigation.navigate('Daily Time sheet')
+    
   }
 
   return (
@@ -42,7 +46,7 @@ const Application: React.FC = (props :any) => {
         </Text>
       
         <TouchableOpacity onPress={handleRegister} style={styles.btnSecondary}>
-          <Text style={styles.btnTitle}>{type ? `Clock ${type}` : 'Register'}</Text>
+          <Text style={styles.btnTitle}>{nextType ? `Clock ${nextType}` : 'Register'}</Text>
         </TouchableOpacity>
 
         {message &&
@@ -56,6 +60,9 @@ const Application: React.FC = (props :any) => {
               </Text>
               <Text style={styles.info}>
                 Time: {time}
+              </Text>
+              <Text style={styles.info}>
+                Type: {type}
               </Text>
             </View>
           </View>

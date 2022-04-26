@@ -6,19 +6,19 @@ export default StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       paddingHorizontal: '5%',
-      backgroundColor: '#ffffff'
+      // backgroundColor: '#ffffff'
     },
     containerData: {
-      flex: 3,
+      flex: 2,
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: '10%',
-      //backgroundColor: 'red',
+      // backgroundColor: 'red',
     },
     containerResponse: {
       flex: 1,
       justifyContent: 'center',
-      //backgroundColor: 'purple',
+      // backgroundColor: 'purple',
     },
     containerRegister: {
       flex: 1,
@@ -26,9 +26,9 @@ export default StyleSheet.create({
       marginBottom: '15%',
     },
     containerOptions: {
-      flex: 2,
+      flex: 1,
       justifyContent: 'center',
-      //backgroundColor: 'green',
+      // backgroundColor: 'green',
       marginBottom: '15%',
     },
     btnPrimary: {
@@ -86,12 +86,10 @@ export default StyleSheet.create({
       marginBottom: 5
     },
     info: {
-      fontSize: 25,
+      fontSize: 23,
       color: commonStyles.colors.txtInformation,
       fontWeight: 'bold',
       alignSelf: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     btnLogout: {
       backgroundColor: commonStyles.button.logoutColor,
@@ -103,5 +101,8 @@ export default StyleSheet.create({
       justifyContent: 'center',
       marginBottom: 20
     },
+    infoMsgError: {
+      color: commonStyles.colors.txtError
+    }
     
   });
