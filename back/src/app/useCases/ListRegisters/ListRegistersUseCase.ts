@@ -36,8 +36,13 @@ export class ListRegistersUseCase {
         })
         
         const overworked = periodMinutesWorked > 60 * limitHours 
-        
-        resultDto.push({ periodMinutesWorked , overworked })
+         
+        const hours = Math.floor((periodMinutesWorked/60))
+        const minutes = periodMinutesWorked % 60
+
+        const periodHoursWorked =  `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
+
+        resultDto.push({ periodHoursWorked , overworked })
         return resultDto
     }
 
