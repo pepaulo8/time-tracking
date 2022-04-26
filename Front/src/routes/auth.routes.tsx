@@ -7,8 +7,6 @@ import screenStyles from './screenStyles';
 
 const AuthStack = createStackNavigator();
 
-
-
 const AuthRoutes: React.FC = () => (
     <AuthStack.Navigator initialRouteName='Login'>
         <AuthStack.Screen 
