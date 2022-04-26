@@ -50,9 +50,10 @@ export class CreateRegisterUseCase {
         return nextType;
     }
 
-    resultToDto (result: Register): Register{
+    resultToDto (result: Register, nextType: string): Register{
         
-        result.date = moment(result.date).format('DD/MM/YYYY')
+        result.date = moment(result.date).format('DD/MM/YYYY');
+        result.type = nextType == 'in' ? 'out' : 'in'; 
         
         return result
     }

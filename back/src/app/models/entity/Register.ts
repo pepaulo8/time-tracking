@@ -20,6 +20,7 @@ export class Register {
 
     @Column()
     userId: string;
+    type?: string;
 
     constructor() {
         if (!this.id) {
