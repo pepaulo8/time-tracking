@@ -4,6 +4,7 @@ import * as userAuth from '../services/user'
 import * as registerAuth from '../services/register'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
+import moment from "moment";
 
 interface User {
   name: string;
@@ -23,10 +24,13 @@ interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
+  listOfRegisters: Array<any> | undefined; 
+  minutesWorked: number;
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
   register(): Promise<registerDto>;
+  getRegisterPeriod(startDate: string, endDate: string): Promise<Array<any>>
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData)
@@ -37,6 +41,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [listOfRegisters, setListOfRegisters] = useState<Object[] | undefined>();
+  const [minutesWorked, setMinutesWorked] = useState<number>(0);
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -96,10 +102,28 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     
   }
 
+  async function getRegisterPeriod(startDate: string, endDate: string) {
+    const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
+    const response = await registerAuth.getRegister(storagedToken, startDate, endDate)
+    //console.log('response.length', response.length)
+    if(response.length){
+      setListOfRegisters(response[0][0].registers)
+      setMinutesWorked(response[0][0].minutesWorked)
+    }
+    console.log(response[0][0])
+    return response
+    
+  }
+
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, loading, signIn, signUp, logOut, register }}>
+      value={{ 
+        signed: !!user, user, loading,
+        signIn, signUp, logOut,
+        register, listOfRegisters, getRegisterPeriod,
+        minutesWorked 
+      }}>
       {children}
     </AuthContext.Provider>
   )

@@ -25,6 +25,6 @@ router.get('/users', AuthMiddleware, authUserController.index);
 
 router.post('/registers', AuthMiddleware, createRegisterController.handle)
 
-router.get('/registers', AuthMiddleware, listRegistersController.handle)
+router.post('/registers/list', AuthMiddleware, listRegistersController.handle)
 
 export default router;

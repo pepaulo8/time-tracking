@@ -1,12 +1,13 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { Button, Text, TouchableOpacity, View } from 'react-native';
 import { useAuth } from '../../contexts/auth';
 import styles from './styles';
 
 
-const Application: React.FC = () => {
+const Application: React.FC = (props :any) => {
 
-  const { logOut, user, register } = useAuth()
+  const { logOut, user, register, getRegisterPeriod } = useAuth()
 
   const [time, setTime] = useState('loading...')
   const [date, setDate] = useState('loading...')
@@ -18,11 +19,16 @@ const Application: React.FC = () => {
   }
   async function handleRegister() {
     const response = await register()
-    console.log('response', response)
     setMessage(response?.message)
     setType(response?.nextType)
     setDate(response?.result.date)
     setTime(response?.result.time)
+  }
+
+  function goToDailyTS() {
+    const today = moment().format('YYYY-MM-DD')
+    getRegisterPeriod(today, today)
+    props.navigation.navigate('Daily Time sheet')
   }
 
   return (
@@ -58,7 +64,7 @@ const Application: React.FC = () => {
 
       </View>
       <View style={styles.containerOptions}>
-        <TouchableOpacity onPress={handleLogOut} style={styles.btnPrimary}>
+        <TouchableOpacity onPress={goToDailyTS} style={styles.btnPrimary}>
             <Text style={styles.btnTitle}>Daily time sheet</Text>
           </TouchableOpacity>
         <TouchableOpacity onPress={handleLogOut} style={styles.btnPrimary}>
