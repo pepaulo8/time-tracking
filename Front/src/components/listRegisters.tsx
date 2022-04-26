@@ -1,47 +1,43 @@
 import React from 'react';
-import { View, FlatList, Dimensions, Text} from 'react-native';
+import { View, FlatList, Dimensions, Text, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const ListRegisters: React.FC = ({data} :any) => {
+const ListRegisters: React.FC = ({ data }: any) => {
 
-  return (
-    <FlatList
-        data={data}
-        keyExtractor={(item) => (`${item.date}_${item.time}`)}
-        showsHorizontalScrollIndicator
-        style={{
-            alignContent: 'center'
-        }}
-        renderItem={({item}) => {
-            return (
-                <View
-                    style={{
-                        backgroundColor: '#C2C2C2',
-                        height: width/ 8,
-                        width: width * 0.8,
-                        marginVertical: 10,
-                        borderRadius: 15,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        alignSelf: 'center'
-                        
-                    }}
-                >
-                <Text style={{
-                    textAlign: 'center',
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                }}
-                > 
-                Time: {item.time} | Clock {item.type}
-                </Text>
-                </View>
-                    
-            )
-        }}
-    />
-  );
+    return (
+        <FlatList
+            data={data}
+            keyExtractor={(item) => (`${item.date}_${item.time}`)}
+            showsHorizontalScrollIndicator
+            style={{ margin: 35 }}
+            renderItem={({ item }) => {
+                return (
+                    <View style={styles.itemView}>
+                        <Text style={styles.itemText}>
+                            Time: {item.time} | Clock {item.type}
+                        </Text>
+                    </View>
+
+                )
+            }}
+        />
+    );
 }
+
+const styles = StyleSheet.create({
+    itemView: {
+        backgroundColor: '#C2C2C2',
+        padding: 30,
+        margin: 10,
+        borderRadius: 15,
+        alignSelf: 'center'
+    },
+    itemText: {
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    }
+})
 
 export default ListRegisters;

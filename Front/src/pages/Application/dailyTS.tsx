@@ -5,6 +5,7 @@ import ListRegisters from '../../components/listRegisters';
 import { useAuth } from '../../contexts/auth';
 import styles from './styles';
 import moment from "moment";
+import Loader from '../../components/loader';
 
 var daysWeek:String[] = []
 
@@ -16,12 +17,16 @@ for (let daysBefore = 7; daysBefore >= 0; daysBefore--) {
 
 const DailyTS: React.FC = () => {
 
-  const { logOut, listOfRegisters, minutesWorked } = useAuth()
+  const { loading, logOut, listOfRegisters, infoWorked } = useAuth()
 
-  const today = listOfRegisters[0].date
-  const hours = Math.floor((minutesWorked/60))
-  const minutes = minutesWorked % 60
-  const hoursWorked = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
+  if(!loading && !listOfRegisters){
+    return (
+      <Loader />
+    ) 
+  }
+
+  const today = listOfRegisters[0].date;
+  const { overworked, periodHoursWorked } = infoWorked;
 
   function handleLogOut() {
     logOut();
@@ -31,13 +36,14 @@ const DailyTS: React.FC = () => {
 
   return (
     <SafeAreaView>
-        <Text style={{
-            fontWeight: 'bold',
-            color: '#000000',
-            textAlign: 'center',
-            fontSize: 20
-        }}>Date: {today} | Hours worked: {hoursWorked}</Text>
+      { listOfRegisters && 
+      <View>
+        <Text style={styles.info}>Date: {today}</Text>
+        <Text style={[styles.info, overworked && styles.infoMsgError]}>Hours worked: {periodHoursWorked}</Text>
         <ListRegisters data={listOfRegisters} />
+      </View>
+      }
+        
     </SafeAreaView>  
   );
 }
