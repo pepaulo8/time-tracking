@@ -28,13 +28,16 @@ export class ListRegistersUseCase {
 
     addMinutesWorked(resultDto: object[]): object[] {
         var periodMinutesWorked = 0
-
+        const limitHours = 8
+        
         resultDto.forEach((el) => {
             var elZero = el[0]
             periodMinutesWorked = elZero.minutesWorked + periodMinutesWorked
         })
-
-        resultDto.push({ periodMinutesWorked })
+        
+        const overworked = periodMinutesWorked > 60 * limitHours 
+        
+        resultDto.push({ periodMinutesWorked , overworked })
         return resultDto
     }
 
