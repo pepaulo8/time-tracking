@@ -9,10 +9,10 @@ export class Register {
     id: string
 
     @Column()
-    time: String
+    time: string
 
     @Column()
-    date: String
+    date: string
 
     @ManyToOne(() => User, (user) => user.registers)
     @JoinColumn({ name: "userId" })

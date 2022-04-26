@@ -17,9 +17,12 @@ export class CreateRegisterController {
             return response.status(401).json(result)
         }
         
+        const resultDto =  createRegisterUseCase.resultToDto(result);
+
         return response.status(201).json({
             message: "Registration was successfully completed",
-            result,
+            //result: resultDto,
+            result: resultDto,
             nextType
         })
     }

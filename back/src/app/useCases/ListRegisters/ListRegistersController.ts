@@ -10,8 +10,6 @@ export class ListRegistersController {
 
         const { startDate, endDate } = request.body
 
-        console.log(startDate, endDate)
-
         const listRegistersUseCase = container.resolve(ListRegistersUseCase);
 
         const resultList = await listRegistersUseCase.periodTimeSheet({userId , startDate, endDate});

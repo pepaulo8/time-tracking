@@ -99,11 +99,10 @@ function groupBy (array, key) {
 
 function formatDates(list: Register[]) {
     list.forEach((el) => {
+
         const dateStr = el.date.toString()
-        const dateArr = dateStr.split(' ')
-        
-        const dateEN = `${dateArr[2]}/${dateArr[1]}/${dateArr[3]}` // 12/Apr/2022
-        el.date = dateEN
+        const dateBR = moment(dateStr, 'ddd MMM DD YYYY').format('DD/MM/YYYY') // 26/04/2022
+        el.date = dateBR
     })
 
     return list

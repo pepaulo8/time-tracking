@@ -1,4 +1,6 @@
+import moment = require("moment");
 import { inject, injectable } from "tsyringe";
+import { BroadcasterResult } from "typeorm/subscriber/BroadcasterResult";
 import { AppError } from "../../errors/AppError";
 import { Register } from "../../models/entity/Register";
 import { IRegistersRepository } from "../../repositories/IRegistersRepository";
@@ -15,7 +17,7 @@ export class CreateRegisterUseCase {
         private usersRepository: IUsersRepository
     ) {}
 
-    async execute(userId: string): Promise<Register | AppError | object[]>{
+    async execute(userId: string): Promise<Register | AppError>{
 
         
         const user = await this.usersRepository.findByUserId(userId);
@@ -46,5 +48,12 @@ export class CreateRegisterUseCase {
         const nextType = numberRegistersToday%2 == 0 ? 'in' : 'out';
         
         return nextType;
+    }
+
+    resultToDto (result: Register): Register{
+        
+        result.date = moment(result.date).format('DD/MM/YYYY')
+        
+        return result
     }
 }
