@@ -70,9 +70,9 @@ export default StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
       color: commonStyles.colors.txtError,
+      textAlign: 'center',
       alignSelf: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
+      width: '70%',
     },
     titleForm: {
       color: commonStyles.colors.secondary,

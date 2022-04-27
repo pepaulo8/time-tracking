@@ -88,12 +88,12 @@ const SignUp: React.FC = (props: any) => {
 
         {!!password && !!confirmPwd && !passwordValid &&
           <Text style={styles.msgError}>
-            Confirm password not match
+            * Confirm password not match
           </Text>
         }
         {messageErrorSignUp &&
           <Text style={styles.msgError}>
-            {messageErrorSignUp}
+            * {messageErrorSignUp}
           </Text>
         }
         <TouchableOpacity onPress={handleSignUp}
