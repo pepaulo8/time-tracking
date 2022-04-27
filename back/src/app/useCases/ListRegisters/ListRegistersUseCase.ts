@@ -69,7 +69,7 @@ export class ListRegistersUseCase {
         const hasRegisters = list.length;
 
         if(!hasRegisters){
-            return new AppError("User has no entries");
+            return new AppError("User has no registrations");
         }
 
         const listDatesFormatted = formatDates(list)
