@@ -3,7 +3,15 @@ import { View, FlatList, Dimensions, Text, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const ListRegisters: React.FC = ({ data }: any) => {
+interface register {
+    date: string;
+    time: string;
+    type: string; 
+}
+
+type PropsLR = { data: register[] }
+
+const ListRegisters: React.FC<PropsLR> = ({ data }) => {
 
     return (
         <FlatList

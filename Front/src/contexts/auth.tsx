@@ -14,24 +14,36 @@ interface User {
 interface registerDto {
   message: string;
   nextType: string;
-  result: {
-    date: string;
-    time: string;
-    type: string;
-  }
+  result: register
+}
+
+interface register {
+  date: string;
+  time: string;
+  type: string; 
+}
+
+interface ObjInfoWorked {
+  overworked: boolean;
+  periodHoursWorked: string;
+}
+
+interface ObjDateOfRegisters {
+  list: register[]
+  infoWorked: ObjInfoWorked
 }
 
 interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  listOfRegisters: Array<any>; 
-  infoWorked: object;
+  dataOfRegisters: ObjDateOfRegisters | null; 
+  messageError: string | null;
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
   register(): Promise<registerDto>;
-  getRegisterPeriod(startDate: string, endDate: string): Promise<Array<any>>
+  getRegisterPeriod(startDate: string, endDate: string): Promise<object>
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData)
@@ -42,8 +54,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [listOfRegisters, setListOfRegisters] = useState<Object[]>([{}]);
-  const [infoWorked, setInfoWorked] = useState<object>({});
+  const [dataOfRegisters, setDataOfRegisters] = useState<ObjDateOfRegisters | null>(null);
+  const [messageError, setMessageError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -104,19 +116,26 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   async function getRegisterPeriod(startDate: string, endDate: string) {
-    
+    setLoading(true)
     const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
     const response = await registerAuth.getRegister(storagedToken, startDate, endDate)
     
     if(response.length){
-      setListOfRegisters(response[0][0].registers)
-      setInfoWorked(response[1])
-      setLoading(false)
+      setMessageError(null)
+      setDataOfRegisters({
+        infoWorked: response[1],
+        list: response[0][0].registers
+      })
+      console.log('response getRegisterPeriod', response)
+      return response
     }
-    
+    console.log('response Error getRegisterPeriod', response)
+    setMessageError(response.message)
+    setLoading(false)
     return response
     
   }
+
 
 
   return (
@@ -124,8 +143,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       value={{ 
         signed: !!user, user, loading,
         signIn, signUp, logOut,
-        register, listOfRegisters, getRegisterPeriod,
-        infoWorked
+        register, dataOfRegisters, getRegisterPeriod,
+        messageError
       }}>
       {children}
     </AuthContext.Provider>

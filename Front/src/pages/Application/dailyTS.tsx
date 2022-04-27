@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Dimensions, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ListRegisters from '../../components/listRegisters';
 import { useAuth } from '../../contexts/auth';
@@ -9,6 +9,8 @@ import Loader from '../../components/loader';
 
 var daysWeek:String[] = []
 
+type Teste = { list: object[] }
+
 for (let daysBefore = 7; daysBefore >= 0; daysBefore--) {
     let day = moment().subtract(daysBefore, 'days')
     daysWeek.push(day.format('DD/MM/YYYY'))
@@ -17,30 +19,44 @@ for (let daysBefore = 7; daysBefore >= 0; daysBefore--) {
 
 const DailyTS: React.FC = () => {
 
-  const { loading, logOut, listOfRegisters, infoWorked } = useAuth()
+  const { dataOfRegisters, messageError } = useAuth()
 
-  if(!loading && !listOfRegisters){
+  if(dataOfRegisters == null && messageError == null){
     return (
       <Loader />
     ) 
   }
 
-  const today = listOfRegisters[0].date;
-  const { overworked, periodHoursWorked } = infoWorked;
-
-  function handleLogOut() {
-    logOut();
+  const IMAGE_NO_REGISTERS = require('../../assets/sad-clock-legs.png');
+  var hasError = Boolean(messageError);
+  var today: string = '';
+  var overworked: boolean = false;
+  var periodHoursWorked: string = '00:00';
+  
+  if(dataOfRegisters) {
+    today = dataOfRegisters.list[0].date; 
+    overworked = dataOfRegisters.infoWorked.overworked; 
+    periodHoursWorked = dataOfRegisters.infoWorked.periodHoursWorked; 
   }
 
   const { width } = Dimensions.get('window')
 
   return (
     <SafeAreaView>
-      { listOfRegisters && 
+      { dataOfRegisters && 
       <View>
         <Text style={styles.info}>Date: {today}</Text>
         <Text style={[styles.info, overworked && styles.infoMsgError]}>Hours worked: {periodHoursWorked}</Text>
-        <ListRegisters data={listOfRegisters} />
+        <ListRegisters data={dataOfRegisters.list} />
+      </View>
+      }
+      { hasError && 
+      <View style={{height: '100%' ,alignItems: 'center', justifyContent:'center'}}>
+        <Text style={styles.titleError}> {messageError} for today</Text>
+        <Image
+          style={styles.imgLogo}
+          source={IMAGE_NO_REGISTERS}
+        />
       </View>
       }
         

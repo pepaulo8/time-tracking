@@ -103,6 +103,18 @@ export default StyleSheet.create({
     },
     infoMsgError: {
       color: commonStyles.colors.txtError
+    },
+    imgLogo: {
+      width: '80%',
+      height: '70%',
+    },
+    titleError:{
+      fontSize: 30,
+      color: commonStyles.colors.txtInformation,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      width: '80%',
+      marginBottom: '5%'
     }
-    
+
   });
