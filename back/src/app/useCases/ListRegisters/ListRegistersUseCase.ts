@@ -54,11 +54,13 @@ export class ListRegistersUseCase {
         let resultDto = []
 
         registers.forEach((el,idx) => {
+            let qtdRegisters = Object.keys(el).length - 2;
             resultDto.push([{
                 date: dates[idx],
                 registers: registers[idx],
                 minutesWorked: el["minutesWorked"],
-                overworked: el["overworked"]
+                overworked: el["overworked"],
+                missingRegistration: !Number.isInteger(qtdRegisters/2) || qtdRegisters < 4
             }])
         })
         return resultDto
@@ -137,7 +139,6 @@ function addType(listPerDay: any):object[] {
             delete element.userId
         }
         el["overworked"] = el["minutesWorked"] > 60 * limitHoursDay;  
-        
     })
     return listPerDay
 }
