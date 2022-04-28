@@ -26,23 +26,24 @@ export class ListRegistersUseCase {
         
     ) {}
 
+
     addMinutesWorked(resultDto: object[]): object[] {
         var periodMinutesWorked = 0
-        const limitHours = 8
+        const limitHoursDay = 8
         
         resultDto.forEach((el) => {
             var elZero = el[0]
             periodMinutesWorked = elZero.minutesWorked + periodMinutesWorked
         })
         
-        const overworked = periodMinutesWorked > 60 * limitHours 
+        const periodOverworked = periodMinutesWorked > 60 * limitHoursDay 
          
         const hours = Math.floor((periodMinutesWorked/60))
         const minutes = periodMinutesWorked % 60
 
         const periodHoursWorked =  `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
 
-        resultDto.push({ periodHoursWorked , overworked })
+        resultDto.push({ periodHoursWorked , periodOverworked })
         return resultDto
     }
 
@@ -56,7 +57,8 @@ export class ListRegistersUseCase {
             resultDto.push([{
                 date: dates[idx],
                 registers: registers[idx],
-                minutesWorked: el["minutesWorked"]
+                minutesWorked: el["minutesWorked"],
+                overworked: el["overworked"]
             }])
         })
         return resultDto
@@ -75,7 +77,6 @@ export class ListRegistersUseCase {
         const listDatesFormatted = formatDates(list)
 
         const listPerDay = separatePerDay(listDatesFormatted)
-        
         const listDto = addType(listPerDay)
 
         return listDto;
@@ -109,13 +110,13 @@ function formatDates(list: Register[]) {
 }
 
 function addType(listPerDay: any):object[] {
-
+    const limitHoursDay = 8
     const valuesGrand = Object.values(listPerDay)
 
     valuesGrand.forEach((el) => {
         let valuesParent = Object.values(el)
         el["minutesWorked"] = 0
-        //console.log("elGrand:", typeof el, el)
+
         for (let index = 0; index < valuesParent.length; index++) {
             const element = valuesParent[index];
             let valuesChild = Object.values(element)
@@ -127,9 +128,6 @@ function addType(listPerDay: any):object[] {
                 var momTimeCur = moment(element.time, 'HH:mm:ss')
  
                 const diffMinutes = momTimeCur.diff(momTimeBef,'m')
-                const hoursWorked = momTimeCur.diff(momTimeBef,'h')
-
-                const minutesWorked = diffMinutes < 60 ? diffMinutes : diffMinutes - (hoursWorked * 60);
 
                 el["minutesWorked"] = diffMinutes +  el["minutesWorked"]
             }
@@ -138,7 +136,8 @@ function addType(listPerDay: any):object[] {
             delete element.id
             delete element.userId
         }
-
+        el["overworked"] = el["minutesWorked"] > 60 * limitHoursDay;  
+        
     })
     return listPerDay
 }
