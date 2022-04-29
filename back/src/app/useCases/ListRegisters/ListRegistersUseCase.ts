@@ -60,7 +60,7 @@ export class ListRegistersUseCase {
                 registers: registers[idx],
                 minutesWorked: el["minutesWorked"],
                 overworked: el["overworked"],
-                missingRegistration: !Number.isInteger(qtdRegisters/2) || qtdRegisters < 4
+                missingRegistration: qtdRegisters % 2 != 0 
             }])
         })
         return resultDto

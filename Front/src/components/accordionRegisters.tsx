@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, FlatList, Dimensions, Text, StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
+import ItemDescription from './itemDescription';
+import styles from './styles';
 
-const { width } = Dimensions.get('window')
 
 interface register {
     date: string;
@@ -15,27 +15,29 @@ type PropsLR = { data: register[] }
 const AccordionRegisters: React.FC<PropsLR> = ({ data }) => {
 
     const minutesToHours = (periodMinutesWorked: number) => {
-        const hours = Math.floor((periodMinutesWorked/60))
+        const hours = Math.floor((periodMinutesWorked / 60))
         const minutes = periodMinutesWorked % 60
 
         return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
     }
-
+    
     const renderAccordians = (data: register[] | any[][]) => {
         const accordians = [];
         const qtdDates = Object.keys(data).length - 1;
         for (let idx = 0; idx < qtdDates; idx++) {
             let dataDay = data[idx][0]
             let overworkedDay = dataDay.overworked
+            let missingRegistrationDay = dataDay.missingRegistration
             let periodHoursWorked = minutesToHours(dataDay.minutesWorked)
             accordians.push(
                 <List.Accordion
-                    style={overworkedDay ? { backgroundColor: 'red' } : false}
+                    style={[styles.AccordionList , overworkedDay ? { backgroundColor: '#25C1E8' } : false]}
                     title={dataDay.date}
-                    description={periodHoursWorked}
-                    right={() => (
-                        <Text>R</Text>
-                    )}
+                    titleStyle={styles.AccordionListTitle}
+                    description={<ItemDescription 
+                        periodHoursWorked={periodHoursWorked} 
+                        missingRegistrationDay={missingRegistrationDay}
+                        />}
                     id={idx + 1}
                     key={idx + 1}
                 >
