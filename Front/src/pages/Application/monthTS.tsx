@@ -20,17 +20,7 @@ const MonthTS: React.FC = () => {
 
   const IMAGE_NO_REGISTERS = require('../../assets/sad-clock-legs.png');
   var hasError = Boolean(messageError);
-  var today: string = '';
-  var overworked: boolean = false;
-  var periodHoursWorked: string = '00:00';
 
-  if (dataOfRegisters) {
-    // console.log('dataOfRegisters.list', dataOfRegisters.list)
-    // overworked = dataOfRegisters.infoWorked.periodOverworked;
-    // periodHoursWorked = dataOfRegisters.infoWorked.periodHoursWorked;
-  }
-
-  const { width } = Dimensions.get('window')
 
   return (
     <SafeAreaView>
