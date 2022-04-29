@@ -6,6 +6,7 @@ import styles from './styles';
 import Loader from '../../components/loader';
 
 import AccordionRegisters from '../../components/accordionRegisters';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const MonthTS: React.FC = () => {
 
@@ -34,9 +35,9 @@ const MonthTS: React.FC = () => {
   return (
     <SafeAreaView>
       {dataOfRegisters &&
-        <View>
+        <ScrollView>
           <AccordionRegisters data={dataOfRegisters.list} />
-        </View>
+        </ ScrollView>
       }
       {hasError &&
         <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>

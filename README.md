@@ -28,6 +28,6 @@ Back:
 Front:
 * ~~O aplicativo deve solicitar login para que o usuário verifique seu ponto, sua folha e que consiga realizar o batimento.~~
 * ~~O aplicativo deve fornecer meios de batimento de entrada e saída e calcular as horas trabalhadas no dia.~~
-* O aplicativo deve mostrar a folha espelho do ponto do mês.
+* ~~O aplicativo deve mostrar a folha espelho do ponto do mês.~~
 * O aplicativo deve destacar os dias que ultrapassarem 8 horas de trabalho.
 
