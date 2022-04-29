@@ -9,11 +9,12 @@ export default StyleSheet.create({
     },
     AccordionListTitle: {
         fontWeight: 'bold',
-
+        fontSize: 20
     },
     ErrorText: {
         color: 'red',
         fontWeight: 'bold',
+        fontSize: 15,
     },
     LoaderText: {
         fontSize: 15,
@@ -36,6 +37,9 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    TextHour: {
+        fontSize: 18
     }
 
   });

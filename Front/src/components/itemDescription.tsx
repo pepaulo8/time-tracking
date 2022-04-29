@@ -9,10 +9,9 @@ type InfoWorked = {
 
 const ItemDescription: React.FC<InfoWorked> = (props) => {
 
-    console.log(props)
     return (
         <View>
-            <Text>Hours worked: {props.periodHoursWorked}</Text>
+            <Text style={styles.TextHour}>Hours worked: {props.periodHoursWorked}</Text>
             {props.missingRegistrationDay &&
                 <Text style={styles.ErrorText}>
                     Missing registration
