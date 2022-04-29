@@ -14,7 +14,7 @@ Front-end:
  - [X] Tela de cadastro
  - [X] Validação formulário
  - [X] Tela de registro de ponto
- - [ ] Tela de espelho de ponto
+ - [X] Tela de espelho de ponto
 
 ## Requisitos
 
