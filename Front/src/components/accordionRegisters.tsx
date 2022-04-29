@@ -3,7 +3,6 @@ import { List } from 'react-native-paper';
 import ItemDescription from './itemDescription';
 import styles from './styles';
 
-
 interface register {
     date: string;
     time: string;

@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, FlatList, Dimensions, Text, StyleSheet } from 'react-native';
-
-const { width } = Dimensions.get('window')
+import { View, FlatList, Text, StyleSheet } from 'react-native';
+import styles from './styles';
 
 interface register {
     date: string;
@@ -32,20 +31,5 @@ const ListRegisters: React.FC<PropsLR> = ({ data }) => {
         />
     );
 }
-
-const styles = StyleSheet.create({
-    itemView: {
-        backgroundColor: '#C2C2C2',
-        padding: 30,
-        margin: 10,
-        borderRadius: 15,
-        alignSelf: 'center'
-    },
-    itemText: {
-        textAlign: 'center',
-        fontSize: 18,
-        fontWeight: 'bold',
-    }
-})
 
 export default ListRegisters;
