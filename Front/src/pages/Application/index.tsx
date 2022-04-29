@@ -47,7 +47,7 @@ const Application: React.FC = (props :any) => {
     <View style={styles.container}>
       <View style={styles.containerData}>
         <Text style={styles.titleForm}>
-          Olá, {user?.name}
+          Hello, {user?.name}
         </Text>
         <Text style={styles.subtitleForm}>
           Click below to confirm your register
