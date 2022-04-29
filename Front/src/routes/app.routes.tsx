@@ -4,8 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Application from '../pages/Application';
 import DailyTS from '../pages/Application/dailyTS';
 import screenStyles from './screenStyles';
-import { useAuth } from '../contexts/auth';
-import Loader from '../components/loader';
+import MonthTS from '../pages/Application/monthTS';
 
 const AppStack = createStackNavigator();
 
@@ -19,6 +18,10 @@ const AppRoutes: React.FC = () => {
         />
         <AppStack.Screen 
         name="Daily Time sheet" component={DailyTS}
+        options={screenStyles.Login.options}
+        />
+        <AppStack.Screen 
+        name="Time sheet" component={MonthTS}
         options={screenStyles.Login.options}
         />
     </AppStack.Navigator>

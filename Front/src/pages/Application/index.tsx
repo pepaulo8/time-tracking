@@ -35,6 +35,14 @@ const Application: React.FC = (props :any) => {
     
   }
 
+  function goToMonthTS() {
+    const today = moment().format('YYYY-MM-DD')
+    const firstDayMonth = today.slice(0,8) + '01'
+    getRegisterPeriod(firstDayMonth, today)
+    props.navigation.navigate('Time sheet')
+    
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.containerData}>
@@ -74,7 +82,7 @@ const Application: React.FC = (props :any) => {
         <TouchableOpacity onPress={goToDailyTS} style={styles.btnPrimary}>
             <Text style={styles.btnTitle}>Daily time sheet</Text>
           </TouchableOpacity>
-        <TouchableOpacity onPress={handleLogOut} style={styles.btnPrimary}>
+        <TouchableOpacity onPress={goToMonthTS} style={styles.btnPrimary}>
             <Text style={styles.btnTitle}>Time sheet</Text>
           </TouchableOpacity>
       </View>

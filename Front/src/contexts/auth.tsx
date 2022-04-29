@@ -24,13 +24,14 @@ interface register {
 }
 
 interface ObjInfoWorked {
-  overworked: boolean;
+  periodOverworked: boolean;
   periodHoursWorked: string;
 }
 
 interface ObjDateOfRegisters {
-  list: register[]
-  infoWorked: ObjInfoWorked
+  firstDay: register[];
+  infoWorked: ObjInfoWorked;
+  list: any[];
 }
 
 interface IAuthContextData {
@@ -124,7 +125,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       setMessageError(null)
       setDataOfRegisters({
         infoWorked: response[1],
-        list: response[0][0].registers
+        firstDay: response[0][0].registers,
+        list: response,
       })
       console.log('response getRegisterPeriod', response)
       return response

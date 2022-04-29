@@ -115,6 +115,6 @@ export default StyleSheet.create({
       textAlign: 'center',
       width: '80%',
       marginBottom: '5%'
-    }
+    },
 
   });

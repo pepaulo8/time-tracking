@@ -7,15 +7,6 @@ import styles from './styles';
 import moment from "moment";
 import Loader from '../../components/loader';
 
-var daysWeek:String[] = []
-
-type Teste = { list: object[] }
-
-for (let daysBefore = 7; daysBefore >= 0; daysBefore--) {
-    let day = moment().subtract(daysBefore, 'days')
-    daysWeek.push(day.format('DD/MM/YYYY'))
-} 
-
 
 const DailyTS: React.FC = () => {
 
@@ -34,8 +25,8 @@ const DailyTS: React.FC = () => {
   var periodHoursWorked: string = '00:00';
   
   if(dataOfRegisters) {
-    today = dataOfRegisters.list[0].date; 
-    overworked = dataOfRegisters.infoWorked.overworked; 
+    today = dataOfRegisters.firstDay[0].date; 
+    overworked = dataOfRegisters.infoWorked.periodOverworked; 
     periodHoursWorked = dataOfRegisters.infoWorked.periodHoursWorked; 
   }
 
@@ -47,7 +38,7 @@ const DailyTS: React.FC = () => {
       <View>
         <Text style={styles.info}>Date: {today}</Text>
         <Text style={[styles.info, overworked && styles.infoMsgError]}>Hours worked: {periodHoursWorked}</Text>
-        <ListRegisters data={dataOfRegisters.list} />
+        <ListRegisters data={dataOfRegisters.firstDay} />
       </View>
       }
       { hasError && 
