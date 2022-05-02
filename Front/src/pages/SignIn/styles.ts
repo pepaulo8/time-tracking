@@ -6,23 +6,22 @@ export default StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       paddingHorizontal: '5%',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
     },
     containerLogo: {
-      flex: 3,
-      justifyContent: 'flex-end',
+      flex: 4,
+      justifyContent: 'center',
       alignItems: 'center',
-      //backgroundColor: 'blue'
+      marginBottom: 50,
     },
     imgLogo: {
-      width: 160,
-      height: 155,
+      width: 210,
+      height: 200,
     },
     containerLogin: {
       flex: 5,
       justifyContent: 'center',
-      //backgroundColor: 'green',
-      marginBottom: '15%',
+      paddingBottom: '12%',
     },
     input: {
       alignSelf: 'center',

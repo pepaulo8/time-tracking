@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import commonStyles from "../pages/commonStyles";
 
 export default StyleSheet.create({
     AccordionList: {

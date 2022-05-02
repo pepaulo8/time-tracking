@@ -1,12 +1,15 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import commonStyles from "../commonStyles";
+
+
 
 export default StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: "center",
       paddingHorizontal: '5%',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
+      paddingTop: '35%'
     },
     containerSignup: {
       flex: 5,

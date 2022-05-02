@@ -105,8 +105,8 @@ export default StyleSheet.create({
       color: commonStyles.colors.txtError
     },
     imgLogo: {
-      width: '80%',
-      height: '70%',
+      width: '85%',
+      height: '60%',
     },
     titleError:{
       fontSize: 30,

@@ -1,17 +1,53 @@
-import React, { useState } from 'react';
-import { Text, View, KeyboardAvoidingView, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, KeyboardAvoidingView, Image, Keyboard, Animated, Alert } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../contexts/auth';
 import styles from './styles';
 
+
 const SignIn: React.FC = (props :any) => {
   const { signIn } = useAuth()
 
+  const [logo] = useState(new Animated.ValueXY({x: 210, y: 200}))
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [messageErrorSignIn, setmessageErrorSignIn] = useState<string | undefined>()
   const IMAGE_LOGO = require('../../assets/Click-clock-logo-preview.png');
    
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+  }, [])
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(logo.x, {
+        toValue: 95,
+        duration: 100,
+        useNativeDriver: false
+      }),
+      Animated.timing(logo.y, {
+        toValue: 90,
+        duration: 100,
+        useNativeDriver: false
+      })
+    ]).start()
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(logo.x, {
+        toValue: 210,
+        duration: 100,
+        useNativeDriver: false
+      }),
+      Animated.timing(logo.y, {
+        toValue: 200,
+        duration: 100,
+        useNativeDriver: false
+      })
+    ]).start()
+  }
 
   async function handleSignIn() {
     const responseMsg  = await signIn(email, password);
@@ -25,10 +61,13 @@ const SignIn: React.FC = (props :any) => {
   }
 
   return (
-    <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.containerLogo}>
-        <Image
-          style={styles.imgLogo}
+        <Animated.Image
+          style={{
+            width: logo.x,
+            height: logo.y,
+          }}
           source={IMAGE_LOGO}
         />
       </View>
@@ -62,7 +101,7 @@ const SignIn: React.FC = (props :any) => {
           <Text style={styles.btnTitle}>Sign Up</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </KeyboardAvoidingView>
   )
 }
 
