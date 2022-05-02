@@ -33,6 +33,7 @@ interface IRegisterContextData {
   dataOfRegisters: ObjDateOfRegisters | null; 
   messageError: string | null;
   responseRegister: ObjRegister | null;
+  clearRegisters(): void;
   register(): Promise<void>;
   getRegisterPeriod(startDate: string, endDate: string): Promise<object>
 }
@@ -104,7 +105,7 @@ export const RegisterProvider: React.FC<Props> = ({ children }) => {
   return (
     <RegisterContext.Provider
       value={{
-        register, getRegisterPeriod,
+        register, getRegisterPeriod, clearRegisters,
         responseRegister, dataOfRegisters, messageError
       }}>
       {children}

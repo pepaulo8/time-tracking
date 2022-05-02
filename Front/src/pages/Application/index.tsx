@@ -9,9 +9,10 @@ import styles from './styles';
 const Application: React.FC = (props :any) => {
 
   const {  logOut, user } = useAuth()
-  const { responseRegister, register, getRegisterPeriod } = useRegister()
+  const { responseRegister, register, getRegisterPeriod, clearRegisters } = useRegister()
 
   function handleLogOut() {
+    clearRegisters()
     logOut();
   }
 
