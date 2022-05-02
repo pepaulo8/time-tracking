@@ -7,25 +7,14 @@ import styles from './styles';
 
 const Application: React.FC = (props :any) => {
 
-  const { loading, logOut, user, register, getRegisterPeriod } = useAuth()
-
-  const [time, setTime] = useState('loading...')
-  const [date, setDate] = useState('loading...')
-  const [type, setType] = useState<string | undefined>()
-  const [nextType, setNextType] = useState<string | undefined>()
-  const [message, setMessage] = useState<string | boolean>(false)
+  const { responseRegister, logOut, user, register, getRegisterPeriod } = useAuth()
 
   function handleLogOut() {
     logOut();
   }
+
   async function handleRegister() {
-    const response = await register()
-    
-    setMessage(response?.message)
-    setType(response?.result.type)
-    setNextType(response?.nextType)
-    setDate(response?.result.date)
-    setTime(response?.result.time)
+    await register()
   }
 
   function goToDailyTS() {
@@ -54,23 +43,23 @@ const Application: React.FC = (props :any) => {
         </Text>
       
         <TouchableOpacity onPress={handleRegister} style={styles.btnSecondary}>
-          <Text style={styles.btnTitle}>{nextType ? `Clock ${nextType}` : 'Register'}</Text>
+          <Text style={styles.btnTitle}>{responseRegister?.nextType ? `Clock ${responseRegister?.nextType}` : 'Register'}</Text>
         </TouchableOpacity>
 
-        {message &&
+        {responseRegister?.message &&
           <View style={styles.containerResponse}>
             <Text style={styles.msgSuccess}>
-              {message}
+              {responseRegister?.message}
             </Text>
             <View >
               <Text style={styles.info}>
-                Date: {date}
+                Date: {responseRegister?.date}
               </Text>
               <Text style={styles.info}>
-                Time: {time}
+                Time: {responseRegister?.time}
               </Text>
               <Text style={styles.info}>
-                Type: {type}
+                Type: {responseRegister?.type}
               </Text>
             </View>
           </View>

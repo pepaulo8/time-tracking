@@ -34,16 +34,25 @@ interface ObjDateOfRegisters {
   list: any[];
 }
 
+interface ObjRegister {
+  message: string; 
+  type: string; 
+  nextType: string; 
+  date: string; 
+  time: string;
+}
+
 interface IAuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
   dataOfRegisters: ObjDateOfRegisters | null; 
   messageError: string | null;
+  responseRegister: ObjRegister | null;
   signIn(email: string, password: string): Promise<void | string>;
   signUp(name: string, email: string, password: string): Promise<void | string>;
   logOut(): void;
-  register(): Promise<registerDto>;
+  register(): Promise<void>;
   getRegisterPeriod(startDate: string, endDate: string): Promise<object>
 }
 
@@ -57,6 +66,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [dataOfRegisters, setDataOfRegisters] = useState<ObjDateOfRegisters | null>(null);
   const [messageError, setMessageError] = useState<string | null>(null);
+  const [responseRegister, setResponseRegister] = useState<ObjRegister | null>(null);
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -103,16 +113,28 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logOut() {
-    AsyncStorage.clear().then(() => {
+    console.log('logout iniciado')
+    AsyncStorage.clear()
+    .then(() => {
       setUser(null)
-    }
-    )
+      setResponseRegister(null)
+      setDataOfRegisters(null)
+    })
   }
 
   async function register() {
     const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
     const response = await registerAuth.postRegister(storagedToken)
-    return response
+    
+      if(validateSession(response)){
+        setResponseRegister({
+          message: response.message,
+          type: response.result.type,
+          nextType: response.nextType,
+          date: response.result.date,
+          time: response.result.time
+        })
+      }
     
   }
 
@@ -121,21 +143,31 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const storagedToken = await AsyncStorage.getItem('@controle-ponto:token')
     const response = await registerAuth.getRegister(storagedToken, startDate, endDate)
     
-    if(response.length){
-      setMessageError(null)
-      setDataOfRegisters({
-        infoWorked: response[1],
-        firstDay: response[0][0].registers,
-        list: response,
-      })
-      console.log('response getRegisterPeriod', response)
+    if(validateSession(response)){
+      if(response.length){
+        setMessageError(null)
+        setDataOfRegisters({
+          infoWorked: response[1],
+          firstDay: response[0][0].registers,
+          list: response,
+        })
+        console.log('response getRegisterPeriod', response)
+        return response
+      }
+      console.log('response Error getRegisterPeriod', response)
+      setMessageError(response.message)
+      setLoading(false)
       return response
     }
-    console.log('response Error getRegisterPeriod', response)
-    setMessageError(response.message)
-    setLoading(false)
-    return response
-    
+  }
+
+  function validateSession(response: any) {
+    if(typeof response != 'object'){
+      console.warn('Your session has expired')
+      logOut()
+      return false
+    }
+    return true
   }
 
 
@@ -146,7 +178,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         signed: !!user, user, loading,
         signIn, signUp, logOut,
         register, dataOfRegisters, getRegisterPeriod,
-        messageError
+        responseRegister, messageError
       }}>
       {children}
     </AuthContext.Provider>
