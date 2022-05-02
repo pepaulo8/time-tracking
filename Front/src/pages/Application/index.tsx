@@ -1,13 +1,15 @@
 import moment from 'moment';
-import React, { useState } from 'react';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useAuth } from '../../contexts/auth';
+import { useRegister } from '../../contexts/register';
 import styles from './styles';
 
 
 const Application: React.FC = (props :any) => {
 
-  const { responseRegister, logOut, user, register, getRegisterPeriod } = useAuth()
+  const {  logOut, user } = useAuth()
+  const { responseRegister, register, getRegisterPeriod } = useRegister()
 
   function handleLogOut() {
     logOut();

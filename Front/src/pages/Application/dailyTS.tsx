@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { Button, Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Dimensions, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ListRegisters from '../../components/listRegisters';
-import { useAuth } from '../../contexts/auth';
 import styles from './styles';
-import moment from "moment";
 import Loader from '../../components/loader';
+import { useRegister } from '../../contexts/register';
 
 
 const DailyTS: React.FC = () => {
 
-  const { dataOfRegisters, messageError } = useAuth()
+  const { dataOfRegisters, messageError } = useRegister()
 
   if(dataOfRegisters == null && messageError == null){
     return (

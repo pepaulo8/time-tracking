@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { Button, Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import {  Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuth } from '../../contexts/auth';
 import styles from './styles';
 import Loader from '../../components/loader';
-
 import AccordionRegisters from '../../components/accordionRegisters';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useRegister } from '../../contexts/register';
 
 const MonthTS: React.FC = () => {
 
-  const { dataOfRegisters, messageError } = useAuth()
+  const { dataOfRegisters, messageError } = useRegister()
 
   if (dataOfRegisters == null && messageError == null) {
     return (
