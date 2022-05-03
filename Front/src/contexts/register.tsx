@@ -96,6 +96,7 @@ export const RegisterProvider: React.FC<Props> = ({ children }) => {
   }
 
   function clearRegisters() {
+    setMessageError(null)
     setResponseRegister(null)
     setDataOfRegisters(null)
   }

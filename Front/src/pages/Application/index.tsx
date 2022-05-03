@@ -22,6 +22,7 @@ const Application: React.FC = (props :any) => {
 
   function goToDailyTS() {
     // const today = '2022-05-02'
+    clearRegisters()
     const today = moment().format('YYYY-MM-DD')
     getRegisterPeriod(today, today)
     props.navigation.navigate('Daily Time sheet')
@@ -29,6 +30,7 @@ const Application: React.FC = (props :any) => {
   }
 
   function goToMonthTS() {
+    clearRegisters()
     const today = moment().format('YYYY-MM-DD')
     const firstDayMonth = today.slice(0,8) + '01'
     getRegisterPeriod(firstDayMonth, today)

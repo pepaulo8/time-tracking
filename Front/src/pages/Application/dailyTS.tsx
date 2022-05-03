@@ -18,7 +18,6 @@ const DailyTS: React.FC = () => {
   }
 
   const IMAGE_NO_REGISTERS = require('../../assets/sad-clock-legs.png');
-  // console.log('messageError', messageError)
   var hasError = Boolean(messageError);
   var today: string = '';
   var overworked: boolean = false;

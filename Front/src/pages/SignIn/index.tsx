@@ -51,7 +51,6 @@ const SignIn: React.FC = (props :any) => {
 
   async function handleSignIn() {
     const responseMsg  = await signIn(email, password);
-    console.log(responseMsg)
     responseMsg ? setmessageErrorSignIn(responseMsg) : false;
   }
   

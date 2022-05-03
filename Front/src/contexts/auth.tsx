@@ -10,31 +10,6 @@ interface User {
   email: string;
 }
 
-interface register {
-  date: string;
-  time: string;
-  type: string; 
-}
-
-interface ObjInfoWorked {
-  periodOverworked: boolean;
-  periodHoursWorked: string;
-}
-
-interface ObjDateOfRegisters {
-  firstDay: register[];
-  infoWorked: ObjInfoWorked;
-  list: any[];
-}
-
-interface ObjRegister {
-  message: string; 
-  type: string; 
-  nextType: string; 
-  date: string; 
-  time: string;
-}
-
 interface IAuthContextData {
   signed: boolean;
   user: User | null;
@@ -97,7 +72,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logOut() {
-    console.log('logout iniciado')
     AsyncStorage.clear()
     .then(() => {
       setUser(null)
