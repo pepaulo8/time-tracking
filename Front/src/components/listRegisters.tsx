@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import styles from './styles';
 
 interface register {
     date: string;
     time: string;
-    type: string; 
+    type: string;
 }
 
 type PropsLR = { data: register[] }
@@ -16,7 +16,7 @@ const ListRegisters: React.FC<PropsLR> = ({ data }) => {
         <FlatList
             data={data}
             keyExtractor={(item) => (`${item.date}_${item.time}`)}
-            showsHorizontalScrollIndicator
+            showsVerticalScrollIndicator
             style={{ margin: 35 }}
             renderItem={({ item }) => {
                 return (
@@ -29,6 +29,7 @@ const ListRegisters: React.FC<PropsLR> = ({ data }) => {
                 )
             }}
         />
+
     );
 }
 

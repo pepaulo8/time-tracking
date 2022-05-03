@@ -21,6 +21,7 @@ const Application: React.FC = (props :any) => {
   }
 
   function goToDailyTS() {
+    // const today = '2022-05-02'
     const today = moment().format('YYYY-MM-DD')
     getRegisterPeriod(today, today)
     props.navigation.navigate('Daily Time sheet')
