@@ -11,8 +11,6 @@ const MonthTS: React.FC = () => {
 
   const { dataOfRegisters, messageError } = useRegister()
 
-  console.log('messageError', messageError)
-  console.log('dataOfRegisters', dataOfRegisters)
   if (dataOfRegisters == null && messageError == null) {
     return (
       <Loader />
