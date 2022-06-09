@@ -1,6 +1,11 @@
 # controle-ponto (Click Clock)
 Sistema para controle e registro de ponto.
 
+## Telas
+
+* [Imagens](https://github.com/Vini9-9/controle-ponto/tree/master/captures)
+* [Navegação](https://github.com/Vini9-9/controle-ponto/tree/master/screen-recorder)
+
 
 ## Tecnologias
 
