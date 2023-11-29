@@ -8,6 +8,16 @@ select * from registers;
 select name, time, date from users
 inner join registers using (userID);
 
+-- Consulta registros dos profissionais do mês atual
+select name, time, date from users
+inner join registers using (userID)
+where MONTH(date) = MONTH(CURRENT_DATE());
+
+-- Consulta registros dos profissionais por mês
+select name, time, date from users
+inner join registers using (userID)
+where MONTH(date) = 10;
+
 -- Consulta quem saiu mais tarde (depois das 17h)
 select name, time, date from users
 inner join registers using (userID)
